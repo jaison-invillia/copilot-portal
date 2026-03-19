@@ -1,264 +1,82 @@
-# 📚 Educational Portal
+# Educational Portal
 
-Portal educacional para disponibilização de cursos online baseados em
-videoaulas hospedadas no YouTube.
+Portal educacional com cursos online em videoaulas do YouTube.
 
-O sistema permitirá que alunos se cadastrem, acessem cursos organizados
-em trilhas de aprendizado e obtenham certificados após completar todas
-as aulas de um curso.
+O sistema oferece autenticação de alunos, catálogo de cursos, registro de progresso por aula e emissão de certificado digital após conclusão do curso.
 
-------------------------------------------------------------------------
+## Objetivo e Escopo
 
-# 🎯 Objetivo do Projeto
+O projeto resolve a jornada completa de aprendizagem em uma única plataforma:
 
-Criar uma plataforma educacional onde:
+- cadastro e login de alunos
+- acesso a cursos e aulas
+- acompanhamento de progresso em tempo real
+- geração de certificado ao concluir 100% do curso
 
--   Alunos possam **se cadastrar e acessar cursos**
--   Cursos sejam compostos por **listas de aulas em vídeo**
--   As aulas sejam **incorporadas do YouTube**
--   O sistema **controle o progresso do aluno**
--   Após completar todas as aulas, o aluno **receba um certificado
-    digital**
+## Funcionalidades Principais
 
-------------------------------------------------------------------------
+### 1. Cadastro e autenticação
 
-# 🧩 Funcionalidades Principais
+- registro de conta com email único
+- login com JWT
+- acesso autenticado aos recursos de curso
 
-## 👤 Cadastro de Alunos
+### 2. Catálogo de cursos
 
-O sistema permitirá que usuários criem uma conta para acessar os cursos.
+- listagem paginada de cursos
+- detalhe do curso com aulas ordenadas
+- visualização de total de aulas por curso
 
-Funcionalidades previstas:
+### 3. Videoaulas
 
--   Cadastro de aluno
--   Login
--   Autenticação de sessão
--   Perfil do aluno
+- aulas vinculadas a URLs do YouTube
+- reprodução embutida no frontend
+- organização por ordem de exibição dentro do curso
 
-------------------------------------------------------------------------
+### 4. Progresso por aula
 
-## 📚 Catálogo de Cursos
+- marcação de conclusão por aula
+- endpoint idempotente para concluir aula
+- cálculo de percentual de conclusão do curso
 
-Cursos disponíveis serão listados para alunos autenticados.
+### 5. Certificados
 
-Cada curso conterá:
+- emissão quando o curso atinge 100%
+- unicidade por aluno e curso
+- download em PDF sob demanda
 
--   Nome
--   Descrição
--   Lista de aulas
--   Progresso do aluno
+## Visão Técnica Rápida
 
-Exemplo de estrutura de curso:
+- frontend: Next.js com SSR
+- backend: Node.js com Clean Architecture
+- banco de dados: MySQL 8
+- observabilidade: New Relic + logs estruturados com requestId
 
-    HTML Básico
-    ├── Aula 1: Introdução ao HTML
-    ├── Aula 2: Estrutura de uma página
-    ├── Aula 3: Tags principais
-    └── Aula 4: Formulários
+Referências técnicas:
 
-------------------------------------------------------------------------
+- arquitetura: [docs/architecture.md](docs/architecture.md)
+- domínio: [docs/domain.md](docs/domain.md)
+- banco de dados: [docs/database.md](docs/database.md)
+- contratos de API: [docs/api-spec.md](docs/api-spec.md)
+- diretrizes de engenharia: [docs/engineer-guidelines.md](docs/engineer-guidelines.md)
+- estrutura do projeto: [docs/project-structure.md](docs/project-structure.md)
+- observabilidade: [docs/observability.md](docs/observability.md)
+- segurança: [docs/security.md](docs/security.md)
 
-## 🎥 Videoaulas
+## Como Começar
 
-As aulas serão hospedadas no **YouTube** e exibidas dentro da
-plataforma.
+Use as instruções de setup local em [docs/local-setup.md](docs/local-setup.md).
 
-Cada aula possuirá:
+## Desenvolvimento com IA
 
--   Título
--   Descrição
--   URL do vídeo no YouTube
--   Ordem dentro do curso
+O repositório utiliza fluxo com agentes especializados para planejamento, implementação, revisão, testes, observabilidade e segurança.
 
-------------------------------------------------------------------------
+Guias principais:
 
-## 📊 Controle de Progresso
+- fluxo de agentes: [docs/agent-task-flow.md](docs/agent-task-flow.md)
+- definição de agentes: [AGENTS.md](AGENTS.md)
+- contexto para IA: [docs/ai/ai-context.md](docs/ai/ai-context.md)
 
-O sistema deverá registrar:
-
--   Quais aulas o aluno assistiu
--   Qual o progresso no curso
-
-Somente após completar **100% das aulas**, o aluno poderá receber o
-certificado.
-
-------------------------------------------------------------------------
-
-## 🏆 Emissão de Certificado
-
-Após completar todas as aulas de um curso:
-
--   O sistema gera um **certificado digital**
--   O certificado conterá:
-    -   Nome do aluno
-    -   Nome do curso
-    -   Data de conclusão
-    -   Identificador único
-
-------------------------------------------------------------------------
-
-# 🧱 Arquitetura (Visão Geral)
-
-O projeto será dividido em duas aplicações principais:
-
-    educational-portal
-    │
-    ├── frontend
-    │   └── Next.js
-    │
-    ├── backend
-    │   └── Node.js API
-    │
-    └── database
-        └── MySQL
-
-------------------------------------------------------------------------
-
-# ⚙️ Stack Tecnológica
-
-## 🎨 Design
-
-Ferramenta utilizada:
-
-**Figma**
-
-Responsável por:
-
--   Layouts
--   Componentes visuais
--   Fluxos de navegação
--   Design system
-
-------------------------------------------------------------------------
-
-## 💻 Front-end
-
-Tecnologia principal:
-
-**Next.js**
-
-Características:
-
--   Server Side Rendering (SSR)
--   Rotas baseadas em páginas
--   Integração com API backend
--   Renderização de páginas de cursos
-
-------------------------------------------------------------------------
-
-## 🔧 Back-end
-
-Tecnologia principal:
-
-**Node.js**
-
-Responsabilidades:
-
--   API de autenticação
--   Gestão de alunos
--   Gestão de cursos
--   Controle de progresso
--   Emissão de certificados
-
-------------------------------------------------------------------------
-
-## 🗄 Banco de Dados
-
-Banco escolhido:
-
-**MySQL 8**
-
-Principais entidades previstas:
-
--   Users
--   Courses
--   Lessons
--   CourseProgress
--   Certificates
-
-------------------------------------------------------------------------
-
-## 📈 Monitoramento
-
-Ferramenta:
-
-**New Relic**
-
-Monitoramento de:
-
--   Performance da API
--   Erros da aplicação
--   Métricas de uso
-
-------------------------------------------------------------------------
-
-## 🪵 Logs
-
-Ferramenta ainda **a definir**.
-
-Possíveis opções:
-
--   Winston
--   Pino
--   OpenTelemetry
--   ELK Stack
-
-------------------------------------------------------------------------
-
-# 🤖 Desenvolvimento Assistido por IA
-
-Este projeto será desenvolvido utilizando **agentes especializados**
-para acelerar a construção da aplicação.
-
-Agentes previstos no fluxo de desenvolvimento:
-
--   Orchestrator Agent
--   Product Agent
--   Architecture Agent
--   Database Agent
--   Backend Agent
--   Frontend Agent
--   Code Review Agent
--   Test Agent
--   DevOps Agent
--   Observability Agent
--   Security Agent
-
-------------------------------------------------------------------------
-
-# 📅 Roadmap Inicial
-
-### Fase 1 --- Fundação
-
--   Definição da arquitetura
--   Modelagem do banco de dados
--   Estrutura do repositório
-
-### Fase 2 --- Backend
-
--   API de autenticação
--   API de cursos
--   API de progresso
-
-### Fase 3 --- Frontend
-
--   Tela de login
--   Listagem de cursos
--   Player de aulas
-
-### Fase 4 --- Certificados
-
--   Geração de certificado
--   Download do certificado
-
-### Fase 5 --- Observabilidade
-
--   Monitoramento
--   Logs
--   Métricas
-
-------------------------------------------------------------------------
-
-# 📄 Licença
+## Licença
 
 A definir.
