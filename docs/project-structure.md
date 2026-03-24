@@ -1,6 +1,6 @@
 # 🗂️ Project Structure
 
-Este documento define a **estrutura recomendada do repositório** e convenções de organização do código para o Portal Educacional.
+Este documento define a **estrutura recomendada do repositório** e convenções de organização do código para o projeto.
 
 Objetivo:
 - reduzir ambiguidade na criação de arquivos/pastas
@@ -38,13 +38,8 @@ project-root/
 
     adr/
       0001-clean-architecture.md
-      0002-jwt-authentication.md
-      0003-progress-per-lesson.md
-      0004-mysql-database.md
-      0005-youtube-video-hosting.md
-      0006-nextjs-ssr.md
-      0007-certificate-pdf-on-demand.md
       0008-structured-logging.md
+      [outros ADRs do projeto]
 
   backend/
     package.json
@@ -129,7 +124,7 @@ backend/
 Regras:
 - Unit tests focam em `domain` e `application`.
 - Integration tests cobrem repos e endpoints críticos.
-- E2E cobre o fluxo principal (login → curso → progresso → certificado).
+- E2E cobre o fluxo principal do sistema.
 
 ---
 
@@ -142,22 +137,16 @@ frontend/
   pages/
     index.tsx
     login.tsx
-    courses/
-      index.tsx               # listagem de cursos
-      [courseId].tsx          # detalhe do curso (SSR)
-      [courseId]/
-        lessons/
-          [lessonId].tsx      # aula + ações de progresso
-        certificate.tsx       # certificado do curso
+    [recurso]/
+      index.tsx               # listagem
+      [id].tsx                # detalhe (SSR)
 
   components/
   hooks/
   services/
     api-client.ts             # wrapper HTTP
     auth.ts                   # login/token helpers
-    courses.ts                # clients por recurso
-    progress.ts
-    certificates.ts
+    [recurso].ts              # clients por recurso
 
   styles/
 ```

@@ -11,15 +11,16 @@ directory is the **source of truth**.
 
 # Project Overview
 
-Project: Educational Portal
+<!-- [PREENCHER] Preencha com nome, propósito e fluxo principal do projeto. -->
+
+Project: [Nome do Projeto]
 
 Purpose:
-Allow students to register, watch course lessons hosted on YouTube, track progress,
-and receive certificates upon course completion.
+[Descreva o propósito do sistema em 1-2 frases]
 
 Core user flow:
 
-Register → Login → Browse Courses → Watch Lessons → Mark Lesson Complete → Receive Certificate
+[Passo 1] → [Passo 2] → [Passo 3] → [Resultado]
 
 ---
 
@@ -39,9 +40,6 @@ Database
 
 Monitoring
 - New Relic
-
-Video Hosting
-- YouTube
 
 ---
 
@@ -78,77 +76,53 @@ ADR-0001
 
 # Core Domain Model
 
+<!-- [PREENCHER] Liste as entidades principais do projeto e seus relacionamentos. -->
+
 Main entities:
 
-User
-Course
-Lesson
-CourseProgress
-Certificate
+[Entity1]
+[Entity2]
+[Entity3]
 
 Relationships:
 
-User → completes → Lesson
-Lesson → belongs to → Course
-User → progresses through → Course
-Course → grants → Certificate
+[Entity1] → [relação] → [Entity2]
+[Entity2] → [relação] → [Entity3]
 
 Reference:
 docs/domain.md
 
 ---
 
-# Course Completion Logic
+# Business Logic
 
-A course is considered **completed** when:
+<!-- [PREENCHER] Descreva as regras de negócio mais importantes. -->
 
-completed_lessons == total_lessons
-
-Progress tracking is **per lesson**.
-
-Lesson completion endpoint must be **idempotent**.
+> Documente aqui as regras centrais do domínio (ex.: condições de completude,
+> unicidade, idempotência, etc.)
 
 Reference:
-ADR-0003
-
----
-
-# Certificate Logic
-
-Certificates are generated **on demand as PDF**.
-
-Rules:
-
-- Only available when course is completed
-- Unique per (user, course)
-- Stored metadata only (PDF is not persisted)
-
-Reference:
-ADR-0007
+docs/domain.md
 
 ---
 
 # Database Overview
 
+<!-- [PREENCHER] Liste tabelas e constraints principais. -->
+
 Primary tables:
 
-users
-courses
-lessons
-course_progress
-certificates
+[tabela1]
+[tabela2]
+[tabela3]
 
 Important constraints:
 
-course_progress:
-UNIQUE(user_id, lesson_id)
-
-certificates:
-UNIQUE(user_id, course_id)
+[tabela_x]:
+UNIQUE([campo1], [campo2])
 
 Reference:
 docs/database.md
-ADR-0004
 
 ---
 
@@ -160,30 +134,14 @@ Base path:
 
 Authentication:
 
-JWT Bearer Token
-
-Authorization header:
-
-Authorization: Bearer <token>
+<!-- [PREENCHER] Defina o método de autenticação (ex.: JWT Bearer Token) -->
 
 Important endpoints:
 
-POST /auth/register
-POST /auth/login
-
-GET /courses
-GET /courses/{courseId}
-
-POST /courses/{courseId}/lessons/{lessonId}/complete
-
-GET /courses/{courseId}/progress
-
-GET /courses/{courseId}/certificate
-GET /courses/{courseId}/certificate/download
+<!-- [PREENCHER] Liste os endpoints principais -->
 
 Reference:
 docs/api-spec.md
-ADR-0002
 
 ---
 
@@ -253,13 +211,9 @@ Preferred workflow:
 # Key ADR Decisions
 
 ADR-0001 Clean Architecture
-ADR-0002 JWT Authentication
-ADR-0003 Progress per Lesson
-ADR-0004 MySQL Database
-ADR-0005 YouTube Video Hosting
-ADR-0006 Next.js SSR
-ADR-0007 Certificate PDF On Demand
 ADR-0008 Structured Logging
+
+> **[PREENCHER]** Adicione ADRs conforme decisões arquiteturais do seu projeto.
 
 ---
 

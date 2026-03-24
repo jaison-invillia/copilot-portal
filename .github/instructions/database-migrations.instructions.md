@@ -24,9 +24,7 @@ applyTo: "backend/src/infrastructure/db/migrations/**"
 
 - Always define foreign keys with explicit `ON DELETE` / `ON UPDATE` behavior
 - Use `ON DELETE CASCADE` only when child records should be removed with parent
-- Define UNIQUE constraints as documented in `docs/database.md`:
-  - `course_progress`: `UNIQUE(user_id, lesson_id)`
-  - `certificates`: `UNIQUE(user_id, course_id)`
+- Define UNIQUE constraints as documented in `docs/database.md`
 
 ## Indexes
 

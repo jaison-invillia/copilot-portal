@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-O Portal Educacional precisa de um padrão consistente de **logging** para:
+O projeto precisa de um padrão consistente de **logging** para:
 
 - diagnosticar erros rapidamente
 - correlacionar requisições entre logs, erros e traces
@@ -75,12 +75,12 @@ Exemplo de log:
 {
   "timestamp": "2026-03-04T12:00:00Z",
   "level": "info",
-  "service": "educational-portal-api",
+  "service": "[nome-do-projeto]-api",
   "message": "request completed",
   "requestId": "req_12345",
   "http": {
     "method": "GET",
-    "path": "/api/v1/courses",
+    "path": "/api/v1/resources",
     "status": 200,
     "durationMs": 32
   },

@@ -20,14 +20,14 @@ Priority order (most → least volume):
 - **Location**: `test/unit/`
 
 ```typescript
-describe('CompleteLessonUseCase', () => {
-  it('should mark lesson as completed when user has not completed it yet', async () => {
+describe('CreateOrderUseCase', () => {
+  it('should create an order when input is valid', async () => {
     // Arrange
-    const mockRepo = { findProgress: jest.fn().mockResolvedValue(null), save: jest.fn() };
-    const useCase = new CompleteLessonUseCase(mockRepo);
+    const mockRepo = { findById: jest.fn().mockResolvedValue(null), save: jest.fn() };
+    const useCase = new CreateOrderUseCase(mockRepo);
 
     // Act
-    const result = await useCase.execute({ userId: 1, lessonId: 1 });
+    const result = await useCase.execute({ userId: 1, productId: 1 });
 
     // Assert
     expect(result).toBeDefined();

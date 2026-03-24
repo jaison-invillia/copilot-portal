@@ -94,8 +94,8 @@ Keep changes small and incremental.
 
 ### Backend
 - Prefer TypeScript if the repo is TypeScript-based; otherwise keep consistency.
-- Implement idempotency where required (notably lesson completion).
-- Respect DB uniqueness constraints (progress and certificates).
+- Implement idempotency where required by the domain.
+- Respect DB uniqueness constraints as defined in `docs/database.md`.
 - Keep DTOs separate from domain entities.
 
 ### Frontend (Next.js)
@@ -119,7 +119,7 @@ When generating code changes, include:
 
 - Auth flows and response shapes: `docs/api-spec.md`
 - DB constraints and indexes: `docs/database.md`
-- Progress and certificate rules: `docs/domain.md` + ADRs `0003`, `0007`
+- Domain-specific business rules: `docs/domain.md` + relevant ADRs
 - Logging/request correlation: `docs/observability.md` + ADR `0008`
 - Architectural boundaries: `docs/architecture.md` + ADR `0001`
 - Engineering best practices: `docs/engineering-guidelines.md`

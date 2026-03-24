@@ -1,12 +1,10 @@
 # 🏗️ Architecture
 
-Este documento descreve as **decisões arquiteturais** do Portal Educacional.
+Este documento descreve as **decisões arquiteturais** do projeto.
 
-Para visão geral (objetivos, funcionalidades e stack) consulte:
-- `README.md`
+Para visão geral consulte: `README.md`
 
-Para regras do domínio consulte:
-- `docs/domain.md`
+Para regras do domínio consulte: `docs/domain.md`
 
 ---
 
@@ -46,8 +44,8 @@ main            ─┘
 ## 🧩 Responsabilidades por camada
 
 ### Domain
-- Entidades (ex.: `User`, `Course`, `Lesson`)
-- Regras invariantes do domínio (ex.: “certificado só existe após conclusão”)
+- Entidades de negócio
+- Regras invariantes do domínio
 - Value Objects (se aplicável)
 
 **Não contém**
@@ -58,14 +56,12 @@ main            ─┘
 - Ports (interfaces) para persistência e serviços externos
 - Modelos de saída (quando necessário) que não são entidades HTTP
 
-Exemplos de use cases:
-- `RegisterUser`
-- `LoginUser`
-- `ListCourses`
-- `GetCourseDetails`
-- `CompleteLesson`
-- `GetCourseProgress`
-- `GetCertificate` / `DownloadCertificate`
+> **[PREENCHER]** Liste os use cases do projeto. Exemplos:
+> - `RegisterUser`
+> - `LoginUser`
+> - `Create[Entity]`
+> - `Get[Entity]Details`
+> - `List[Entities]`
 
 ### Interfaces (Input Adapters)
 - Rotas e controllers HTTP
@@ -148,28 +144,6 @@ frontend/
 
 ---
 
-## 📊 Progress Tracking (regra técnica)
-
-- Granularidade: progresso por **aula** (lesson).
-- Endpoint de “complete lesson” deve ser **idempotente**.
-- O cálculo de conclusão deve comparar:
-  - total de aulas do curso
-  - total de aulas concluídas pelo usuário
-
-Detalhes do modelo: `docs/database.md` e regras: `docs/domain.md`.
-
----
-
-## 🏆 Certificados (regra técnica)
-
-- Certificado é **único por (user, course)**.
-- Emissão ocorre somente quando o curso está completo.
-- Download retorna PDF com rota protegida.
-
-Contratos: `docs/api-spec.md`.
-
----
-
 ## 📈 Observability
 
 - Instrumentar backend com **New Relic** (APM + erros).
@@ -192,6 +166,5 @@ Obrigatório:
 
 Possíveis melhorias futuras (quando necessidade aparecer):
 - cache (Redis) para leituras intensas
-- processamento assíncrono (fila) para geração de certificados
-- versionamento/validação de certificados (URL pública verificável)
+- processamento assíncrono (filas) para operações pesadas
 - containerização e escalabilidade horizontal

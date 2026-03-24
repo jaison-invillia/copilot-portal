@@ -1,6 +1,6 @@
 # 🔒 Security
 
-Este documento define o baseline de **segurança** do Portal Educacional: autenticação, autorização, validação, proteção de dados e práticas de desenvolvimento seguro.
+Este documento define o baseline de **segurança** do projeto: autenticação, autorização, validação, proteção de dados e práticas de desenvolvimento seguro.
 
 Referências:
 - Arquitetura: `docs/architecture.md`
@@ -13,7 +13,7 @@ Referências:
 
 ## 🎯 Objetivos
 
-- Proteger contas e dados dos alunos.
+- Proteger contas e dados dos usuários.
 - Evitar classes comuns de vulnerabilidades (OWASP Top 10).
 - Definir um baseline de segurança para implementação incremental.
 - Minimizar vazamento de dados (PII) e credenciais.
@@ -56,7 +56,7 @@ Referências:
 - Admin endpoints (futuro) devem exigir RBAC.
 
 ### Admin (futuro)
-- Introduzir `role` no usuário (ex.: `student`, `admin`) **somente quando necessário**.
+- Introduzir `role` no usuário (ex.: `user`, `admin`) **somente quando necessário**.
 - Documentar RBAC em `docs/domain.md` e `docs/api-spec.md`.
 
 ---
@@ -72,8 +72,8 @@ Referências:
 ### Exemplos de validações mínimas
 - `email` formato válido e tamanho máximo
 - `password` tamanho mínimo e máximo
-- `courseId`, `lessonId` numéricos
-- `youtubeUrl` deve ser URL válida (no cadastro de aula)
+- IDs numéricos validados (ex.: `entityId`)
+- URLs devem ser validadas quando aplicável
 
 ---
 
@@ -166,12 +166,12 @@ PII (mínimo):
   - resposta genérica para credenciais inválidas
   - rate limit recomendado
 
-### Courses/Progress/Certificates
-- exigir JWT
-- validar `courseId`/`lessonId`
-- garantir que `lessonId` pertence a `courseId`
-- idempotência em “complete lesson”
-- download de certificado apenas para dono
+### Recursos protegidos
+- exigir token válido
+- validar IDs de recursos
+- garantir integridade referencial entre entidades
+- idempotência em operações de escrita (quando aplicável)
+- acesso restrito ao dono do recurso
 
 ---
 
@@ -181,7 +181,7 @@ PII (mínimo):
 - Integration tests para:
   - 401 sem token
   - 403 quando recurso não pertence
-  - 409 em conflito (email/certificado)
+  - 409 em conflito (ex.: email duplicado)
 - Teste de regressão para bug de autorização (IDOR)
 
 ---

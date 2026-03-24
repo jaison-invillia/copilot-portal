@@ -111,7 +111,7 @@ For each architectural layer (Domain, Application, Interfaces, Infrastructure, M
 
 ### Step 4 — Suggest file/module structure
 - Propose the folder and file structure per layer, following `docs/project-structure.md` and naming conventions from `docs/engineer-guidelines.md`.
-- Use concrete file names (e.g., `backend/src/application/use-cases/complete-lesson.ts`).
+- Use concrete file names (e.g., `backend/src/application/use-cases/create-order.ts`).
 - Distinguish between **new files** and **modified existing files**.
 
 ### Step 5 — Check for ADR requirement
@@ -221,7 +221,7 @@ Post the following structure as a comment on the GitHub Issue:
   3. Do NOT silently assume or define undocumented behavior.
 - **Never place business logic** in controllers — flag it as an architecture concern if the issue implies this.
 - **Never allow** domain layer imports from application, interfaces, or infrastructure — enforce this boundary in your analysis.
-- Always verify that the proposed structure respects uniqueness constraints from `docs/database.md` (especially for progress and certificates).
+- Always verify that the proposed structure respects uniqueness constraints from `docs/database.md`.
 - Always ensure `requestId` propagation is noted for any new HTTP flow (`docs/observability.md`).
 
 ---

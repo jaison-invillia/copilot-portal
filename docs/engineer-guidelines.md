@@ -1,6 +1,6 @@
 # 🧭 Engineering Guidelines
 
-Este documento define padrões e regras de engenharia para o Portal Educacional.
+Este documento define padrões e regras de engenharia para o projeto.
 
 Referências:
 - Visão geral: `README.md`
@@ -38,8 +38,8 @@ As decisões arquiteturais (incluindo **Clean Architecture**, camadas e regras d
 - Preferir **código explícito** ao “mágico” (principalmente com IA).
 
 ### Nomes
-- Pastas: `kebab-case` (ex.: `course-progress`)
-- Arquivos TS/JS: `kebab-case` (ex.: `course-service.ts`)
+- Pastas: `kebab-case` (ex.: `order-items`)
+- Arquivos TS/JS: `kebab-case` (ex.: `order-service.ts`)
 - Classes: `PascalCase`
 - Funções/variáveis: `camelCase`
 - Constantes: `UPPER_SNAKE_CASE`
@@ -56,7 +56,7 @@ As decisões arquiteturais (incluindo **Clean Architecture**, camadas e regras d
 ### Pirâmide recomendada
 - **Unit tests (principal foco):** domain + application
 - **Integration tests:** repositories + API endpoints críticos
-- **E2E (mínimo viável):** fluxo feliz (login → curso → progresso → certificado)
+- **E2E (mínimo viável):** fluxo feliz principal
 
 ### Regras
 - Cada Use Case deve ter testes de:
@@ -84,7 +84,7 @@ As decisões arquiteturais (incluindo **Clean Architecture**, camadas e regras d
 
 - Migrations versionadas em `backend/src/infrastructure/db/migrations` (ou equivalente).
 - Constraints do banco **devem refletir regras do domínio** quando possível.
-- `course_progress` e `certificates` devem ter unicidade conforme `docs/database.md`.
+- Unicidade conforme definido em `docs/database.md`.
 
 ---
 

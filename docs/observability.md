@@ -1,6 +1,6 @@
 # 📈 Observability
 
-Este documento define o padrão de **observabilidade** do Portal Educacional: logs, correlação, erros, métricas e instrumentação com New Relic.
+Este documento define o padrão de **observabilidade** do projeto: logs, correlação, erros, métricas e instrumentação com New Relic.
 
 Referências:
 - Arquitetura: `docs/architecture.md`
@@ -55,12 +55,12 @@ Todo log deve tentar conter:
   "timestamp": "ISO-8601",
   "level": "info",
   "message": "human readable message",
-  "service": "educational-portal-api",
+  "service": "[nome-do-projeto]-api",
   "env": "dev|staging|prod",
   "requestId": "req_...",
   "http": {
     "method": "GET",
-    "path": "/api/v1/courses",
+    "path": "/api/v1/[recurso]",
     "status": 200,
     "durationMs": 34
   },
@@ -83,8 +83,7 @@ Todo log deve tentar conter:
 - **Erros** (sempre)
   - requestId + code + stack (com cuidado em prod)
 - **Eventos de domínio relevantes** (info)
-  - aula concluída (sem PII excessiva)
-  - certificado emitido (sem dados sensíveis)
+  > **[PREENCHER]** Liste eventos de domínio que devem ser logados (sem PII)
 
 ### Onde logar
 - Backend: stdout/stderr (para agregação posterior)
@@ -107,7 +106,7 @@ Todos erros devem seguir o formato definido em `docs/api-spec.md`:
 - Sem auth/token inválido → 401 (`UNAUTHORIZED`)
 - Sem permissão → 403 (`FORBIDDEN`)
 - Recurso não encontrado → 404 (`NOT_FOUND`)
-- Conflito (email já existe, certificado duplicado) → 409 (`CONFLICT`)
+- Conflito (recurso duplicado) → 409 (`CONFLICT`)
 - Erro inesperado → 500 (`INTERNAL_ERROR`)
 
 **Regra:** erro inesperado deve:
@@ -128,7 +127,7 @@ Resposta exemplo:
 ```json
 {
   "status": "ok",
-  "service": "educational-portal-api",
+  "service": "[nome-do-projeto]-api",
   "version": "git_sha_or_semver",
   "uptimeSeconds": 12345
 }
@@ -156,9 +155,11 @@ Para readiness, incluir dependências:
 - Apdex (se configurado)
 
 ### Métricas de domínio (custom)
-- Aulas concluídas por dia
-- Certificados emitidos por dia
-- Taxa de conclusão de cursos (concluídos / iniciados)
+
+> **[PREENCHER]** Defina métricas de negócio específicas do projeto. Exemplos:
+> - Operações concluídas por dia
+> - Taxa de conversão
+> - Itens processados por hora
 
 **Observação:** evitar métricas que exponham PII.
 
@@ -171,14 +172,14 @@ Para readiness, incluir dependências:
 - Incluir atributos custom:
   - `requestId`
   - `userId` (quando autenticado)
-  - `courseId`, `lessonId` (somente quando relevante)
-- Nomear transações por rota (ex.: `GET /api/v1/courses/{id}`)
+  - IDs de recursos (somente quando relevante)
+- Nomear transações por rota (ex.: `GET /api/v1/[recurso]/{id}`)
 
 ### Eventos importantes para trace
 - Login (sucesso/falha) — com cuidado para não logar credenciais
-- Complete lesson (idempotente)
-- Emissão de certificado
-- Download de certificado
+- Operações de escrita relevantes
+
+> **[PREENCHER]** Liste eventos de domínio relevantes para tracing.
 
 ---
 
@@ -197,18 +198,14 @@ Configurar alertas básicos em staging/prod:
 
 ## 🧰 Troubleshooting rápido
 
-### Cenário: usuário não consegue gerar certificado
-Verificar:
-1. `GET /courses/{courseId}/progress` (completionPercentage = 100?)
-2. logs do endpoint de `complete lesson` (requestId)
-3. constraints do banco (unicidade de certificate)
-4. trace no New Relic do use case de emissão
+> **[PREENCHER]** Adicione cenários de troubleshooting específicos do projeto. Modelo:
 
-### Cenário: progresso não atualiza
+### Cenário: [descrição do problema]
 Verificar:
-1. idempotência e retorno do endpoint `complete`
-2. índices/constraints de `course_progress`
-3. logs de DB errors e `CONFLICT`/`FORBIDDEN`
+1. Endpoint relevante e resposta
+2. Logs com `requestId`
+3. Constraints do banco
+4. Trace no New Relic
 
 ---
 

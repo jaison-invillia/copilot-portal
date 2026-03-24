@@ -80,8 +80,8 @@ Always implement in this sequence to respect dependency direction:
 ## Coding standards
 
 Follow `docs/engineer-guidelines.md`:
-- **Files/folders**: kebab-case (e.g., `complete-lesson.ts`)
-- **Classes**: PascalCase (e.g., `CompleteLessonUseCase`)
+- **Files/folders**: kebab-case (e.g., `create-order.ts`)
+- **Classes**: PascalCase (e.g., `CreateOrderUseCase`)
 - **Functions/variables**: camelCase
 - **Constants**: UPPER_SNAKE_CASE
 - DTOs are separate from domain entities

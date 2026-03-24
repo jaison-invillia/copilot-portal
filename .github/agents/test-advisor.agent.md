@@ -63,7 +63,7 @@ Follow the project's testing pyramid strictly:
 ### E2E tests (lowest volume)
 - **Target**: Critical happy paths only
 - **Focus**: Full flow from HTTP request to DB and back
-- **Verify**: Complete user journeys (e.g., register → login → complete lesson → get certificate)
+- **Verify**: Complete user journeys (e.g., register → login → perform action → verify result)
 
 ---
 
@@ -133,7 +133,7 @@ Structure your testing strategy as follows:
 - Always follow the testing pyramid: more unit tests, fewer integration, minimal e2e.
 - Use cases must be tested with mocked ports, never real DB connections.
 - All error flows must have corresponding test scenarios.
-- Idempotent endpoints (e.g., lesson completion) must have idempotency tests.
+- Idempotent endpoints must have idempotency tests.
 - Uniqueness constraints must have conflict/duplicate tests.
 - Security scenarios (unauthorized, forbidden) must be included for protected endpoints.
 - Test naming must be descriptive and follow conventions from `docs/engineer-guidelines.md`.

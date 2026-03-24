@@ -36,17 +36,10 @@ Se alguma informação estiver ausente, a IA deve **sugerir alteração na docum
 
 # 🧭 Sobre o sistema
 
-Este projeto é um **Portal Educacional** onde:
+<!-- [PREENCHER] Descreva o sistema em termos de alto nível. -->
 
-- usuários se cadastram
-- acessam cursos
-- assistem aulas hospedadas no YouTube
-- progresso é registrado por aula
-- ao completar o curso, um certificado é gerado
-
-Fluxo principal:
-
-User → Login → List Courses → Watch Lessons → Complete Lessons → Generate Certificate
+> Atualize esta seção com o propósito e fluxo principal do projeto.
+> Consulte `docs/domain.md` para o modelo de domínio e `CONTEXT_PACK.md` para o snapshot condensado.
 
 ---
 
@@ -72,17 +65,9 @@ IA **não deve violar essas dependências**.
 
 # 📊 Entidades do sistema
 
-Principais entidades:
+<!-- [PREENCHER] Liste as entidades do domínio do projeto. -->
 
-- User
-- Course
-- Lesson
-- CourseProgress
-- Certificate
-
-Definições completas:
-
-➡ `docs/domain.md`
+> Atualize com as entidades definidas em `docs/domain.md`.
 
 IA **não deve criar novas entidades sem atualizar o domínio**.
 
@@ -90,21 +75,9 @@ IA **não deve criar novas entidades sem atualizar o domínio**.
 
 # 🗄 Banco de dados
 
-Banco:
+<!-- [PREENCHER] Informe o banco utilizado e as tabelas principais. -->
 
-MySQL 8
-
-Principais tabelas:
-
-- users
-- courses
-- lessons
-- course_progress
-- certificates
-
-Definição oficial:
-
-➡ `docs/database.md`
+> Atualize com as informações de `docs/database.md`.
 
 IA não deve:
 
@@ -122,17 +95,9 @@ Base path:
 
 /api/v1
 
-Principais recursos:
+<!-- [PREENCHER] Liste os principais recursos da API. -->
 
-- auth
-- courses
-- lessons
-- progress
-- certificates
-
-Contratos completos:
-
-➡ `docs/api-spec.md`
+> Atualize com os recursos definidos em `docs/api-spec.md`.
 
 IA deve gerar controllers e rotas **conformes ao API_SPEC**.
 

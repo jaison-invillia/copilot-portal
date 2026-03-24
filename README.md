@@ -1,82 +1,124 @@
-# Educational Portal
+# Copilot Agent Template
 
-Portal educacional com cursos online em videoaulas do YouTube.
+Template para desenvolvimento de projetos com **squad de 10 agentes de IA** especializados, usando GitHub Copilot.
 
-O sistema oferece autenticação de alunos, catálogo de cursos, registro de progresso por aula e emissão de certificado digital após conclusão do curso.
+Inclui: agentes configurados, slash commands, skills, instructions contextuais, documentação estruturada e fluxos automatizados (feature, bug fix, review, documentação).
 
-## Objetivo e Escopo
+## Stack Base
 
-O projeto resolve a jornada completa de aprendizagem em uma única plataforma:
+- **Backend:** Node.js + Clean Architecture
+- **Frontend:** Next.js (SSR)
+- **Banco:** MySQL 8
+- **Observabilidade:** New Relic + logs estruturados (JSON)
 
-- cadastro e login de alunos
-- acesso a cursos e aulas
-- acompanhamento de progresso em tempo real
-- geração de certificado ao concluir 100% do curso
+> A stack pode ser substituída — adapte os docs e instructions conforme o novo projeto.
 
-## Funcionalidades Principais
+## Como Usar Este Template
 
-### 1. Cadastro e autenticação
+### 1. Criar repositório a partir do template
 
-- registro de conta com email único
-- login com JWT
-- acesso autenticado aos recursos de curso
+Use este repositório como template para criar um novo projeto.
 
-### 2. Catálogo de cursos
+### 2. Preencher documentação de domínio
 
-- listagem paginada de cursos
-- detalhe do curso com aulas ordenadas
-- visualização de total de aulas por curso
+Os docs abaixo estão com placeholders `[PREENCHER]` — preencha com os dados do seu projeto:
 
-### 3. Videoaulas
+| Documento | O que preencher |
+|-----------|----------------|
+| [docs/domain.md](docs/domain.md) | Entidades, regras de negócio, relacionamentos, fluxo principal |
+| [docs/database.md](docs/database.md) | Tabelas, campos, constraints, indexes, schema SQL |
+| [docs/api-spec.md](docs/api-spec.md) | Endpoints, request/response, autenticação, formato de erro |
+| [docs/local-setup.md](docs/local-setup.md) | Banco de dados, variáveis de ambiente, passos de setup |
+| [CONTEXT_PACK.md](CONTEXT_PACK.md) | Snapshot condensado do projeto para onboarding rápido de IA |
 
-- aulas vinculadas a URLs do YouTube
-- reprodução embutida no frontend
-- organização por ordem de exibição dentro do curso
+### 3. Revisar documentação de engenharia
 
-### 4. Progresso por aula
+Estes docs já estão preenchidos com padrões genéricos — revise e adapte se necessário:
 
-- marcação de conclusão por aula
-- endpoint idempotente para concluir aula
-- cálculo de percentual de conclusão do curso
+| Documento | Conteúdo |
+|-----------|----------|
+| [docs/architecture.md](docs/architecture.md) | Clean Architecture com regras de dependência |
+| [docs/security.md](docs/security.md) | Baseline de segurança (auth, validação, OWASP) |
+| [docs/observability.md](docs/observability.md) | Logging, requestId, métricas, alertas |
+| [docs/engineer-guidelines.md](docs/engineer-guidelines.md) | Naming, testes, git workflow, DoD |
+| [docs/project-structure.md](docs/project-structure.md) | Layout de pastas (Clean Architecture) |
 
-### 5. Certificados
+### 4. Configurar MCP
 
-- emissão quando o curso atinge 100%
-- unicidade por aluno e curso
-- download em PDF sob demanda
+Crie `.vscode/mcp.json` com o GitHub MCP (obrigatório para os agentes interagirem com issues e PRs):
 
-## Visão Técnica Rápida
+```json
+{
+  "servers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  }
+}
+```
 
-- frontend: Next.js com SSR
-- backend: Node.js com Clean Architecture
-- banco de dados: MySQL 8
-- observabilidade: New Relic + logs estruturados com requestId
+MCPs opcionais: Playwright (testes e2e), DB, Figma, etc.
 
-Referências técnicas:
+### 5. Criar ADRs do projeto
 
-- arquitetura: [docs/architecture.md](docs/architecture.md)
-- domínio: [docs/domain.md](docs/domain.md)
-- banco de dados: [docs/database.md](docs/database.md)
-- contratos de API: [docs/api-spec.md](docs/api-spec.md)
-- diretrizes de engenharia: [docs/engineer-guidelines.md](docs/engineer-guidelines.md)
-- estrutura do projeto: [docs/project-structure.md](docs/project-structure.md)
-- observabilidade: [docs/observability.md](docs/observability.md)
-- segurança: [docs/security.md](docs/security.md)
+O template inclui 2 ADRs base:
+- `docs/adr/0001-clean-architecture.md` — Estilo arquitetural
+- `docs/adr/0008-structured-logging.md` — Padrão de logs
 
-## Como Começar
+Crie novos ADRs para decisões do projeto (auth, banco, hosting, etc.).
 
-Use as instruções de setup local em [docs/local-setup.md](docs/local-setup.md).
+### 6. Customizar instructions (opcional)
 
-## Desenvolvimento com IA
+Revise e customize conforme a stack do projeto:
 
-O repositório utiliza fluxo com agentes especializados para planejamento, implementação, revisão, testes, observabilidade e segurança.
+| Arquivo | Propósito |
+|---------|-----------|
+| `.github/copilot-instructions.md` | Instruções gerais para Copilot |
+| `.github/instructions/backend-architecture.instructions.md` | Limites de camada e naming |
+| `.github/instructions/database-migrations.instructions.md` | Padrões de migration |
+| `.github/instructions/testing.instructions.md` | Pirâmide de testes e mocking |
+| `.github/instructions/api-controllers.instructions.md` | Formato de response e validação |
+| `.github/instructions/security.instructions.md` | Auth, JWT, validação |
+| `.github/instructions/frontend-pages.instructions.md` | Next.js patterns |
 
-Guias principais:
+## Agentes
 
-- usage guide: [docs/ai/usage-guide.md](docs/ai/usage-guide.md)
-- fluxo de agentes: [docs/agent-task-flow.md](docs/agent-task-flow.md)
-- definição de agentes: [AGENTS.md](AGENTS.md)
-- contexto para IA: [docs/ai/ai-context.md](docs/ai/ai-context.md)
+10 agentes especializados com papéis definidos:
+
+| Agente | Papel |
+|--------|-------|
+| **Product Owner** | Demandas → issues com critérios de aceite |
+| **Architect** | Análise arquitetural de issues |
+| **Staff** | Orquestrador: planeja, delega, abre PR |
+| **Backend Dev** | Implementação backend (sub-agente) |
+| **Frontend Dev** | Implementação frontend (sub-agente) |
+| **Test Advisor** | Propõe estratégia de testes |
+| **QA** | Executa testes e valida critérios |
+| **Reviewer** | Code review contra guidelines |
+| **Documenter** | Atualiza docs pós-merge |
+| **Metrifier** | Recomenda métricas e observabilidade |
+
+Detalhes completos: [AGENTS.md](AGENTS.md)
+
+## Slash Commands
+
+| Comando | Agente | O que faz |
+|---------|--------|-----------|
+| `/new-feature` | Product Owner | Cria issue a partir de demanda |
+| `/analyze-issue` | Architect | Análise arquitetural |
+| `/implement-issue` | Staff | Planeja e implementa |
+| `/fix-bug` | Staff | Investiga e corrige bug |
+| `/review-pr` | Reviewer | Revisa PR |
+| `/document-pr` | Documenter | Atualiza docs |
+
+## Referências
+
+- Guia de uso dos agentes: [docs/ai/usage-guide.md](docs/ai/usage-guide.md)
+- Guia da squad: [docs/ai/agent-squad-guide.md](docs/ai/agent-squad-guide.md)
+- Fluxo de agentes: [docs/agent-task-flow.md](docs/agent-task-flow.md)
+- Contexto para IA: [docs/ai/ai-context.md](docs/ai/ai-context.md)
+- Recomendações de docs: [docs/engineering-docs-recommendation.md](docs/engineering-docs-recommendation.md)
 
 ## Licença
 

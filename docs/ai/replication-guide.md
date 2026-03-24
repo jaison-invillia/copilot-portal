@@ -1,6 +1,8 @@
 # 🔄 Guia de Replicação
 
-Guia passo a passo para replicar a estrutura de agentes de IA em outro repositório.
+Guia passo a passo para criar um novo projeto a partir deste template.
+
+> **Nota**: Este repositório É o template. Use-o como base para criar novos projetos.
 
 ---
 
@@ -8,26 +10,28 @@ Guia passo a passo para replicar a estrutura de agentes de IA em outro repositó
 
 - VS Code com extensão GitHub Copilot (com suporte a agentes)
 - Acesso ao MCP do GitHub (já configurado no Copilot)
-- Repositório Git inicializado
+- Repositório Git inicializado a partir deste template
 
 ---
 
-## Passo 1 — Copiar a estrutura de arquivos
+## Passo 1 — Criar repositório a partir do template
 
-Copie os seguintes diretórios e arquivos para o novo repositório:
+Use este repositório como template no GitHub (botão "Use this template") ou copie a estrutura manualmente.
+
+A estrutura que será herdada:
 
 ```
 .github/
-  agents/            # Copiar todos os .agent.md
-  prompts/           # Copiar todos os .prompt.md
-  instructions/      # Copiar todos os .instructions.md
-  skills/            # Copiar todas as pastas de skills
+  agents/            # 10 agentes especializados
+  prompts/           # 6 slash commands
+  instructions/      # 7 instructions contextuais
+  skills/            # 2 skills (issue-triage, full-feature-cycle)
   copilot-instructions.md
 
-.vscode/
-  mcp.json           # Configuração de MCP servers
-
+docs/                # Documentação estruturada com placeholders
 AGENTS.md            # Definição da squad
+CONTEXT_PACK.md      # Snapshot condensado com placeholders
+README.md            # Guia do template
 ```
 
 ---
@@ -68,33 +72,31 @@ Para adicionar Figma, Playwright ou outros MCPs, adicione entradas ao `mcp.json`
 
 ---
 
-## Passo 3 — Adaptar a documentação
+## Passo 3 — Preencher a documentação
 
-### Documentos obrigatórios
-Crie os seguintes documentos adaptados ao seu projeto (veja `docs/engineering-docs-recommendation.md` para templates):
+### Documentos com placeholders `[PREENCHER]`
+Os seguintes documentos já possuem a estrutura pronta — basta preencher com os dados do seu projeto:
 
 | Documento | Obrigatório? | Propósito |
 |-----------|-------------|-----------|
-| `docs/architecture.md` | ✅ | Estilo arquitetural e camadas |
 | `docs/domain.md` | ✅ | Entidades e regras de negócio |
 | `docs/api-spec.md` | ✅ (se tem API) | Contratos HTTP |
 | `docs/database.md` | ✅ (se tem DB) | Schema e constraints |
-| `docs/security.md` | ✅ | Baseline de segurança |
-| `docs/engineer-guidelines.md` | ✅ | Padrões de código e testes |
-| `docs/observability.md` | Recomendado | Logging e monitoramento |
-| `docs/project-structure.md` | Recomendado | Layout de pastas |
-| `docs/ai/ai-context.md` | Recomendado | Contexto condensado para IA |
+| `docs/local-setup.md` | ✅ | Setup do ambiente local |
 | `CONTEXT_PACK.md` | Recomendado | Snapshot para onboarding rápido |
+| `docs/ai/ai-context.md` | Recomendado | Contexto condensado para IA |
 
-### Atualizar referências nos agentes
-Os agentes fazem referência a paths de documentação. Se seus docs estiverem em local diferente, atualize:
-- Seção "Mandatory documentation to read" em cada `.agent.md`
-- Referências em `copilot-instructions.md`
-- Referências em `AGENTS.md`
+### Documentos já preenchidos (revisar e adaptar se necessário)
 
----
+| Documento | Propósito |
+|-----------|-----------|
+| `docs/architecture.md` | Estilo arquitetural e camadas |
+| `docs/security.md` | Baseline de segurança |
+| `docs/engineer-guidelines.md` | Padrões de código e testes |
+| `docs/observability.md` | Logging e monitoramento |
+| `docs/project-structure.md` | Layout de pastas |
 
-## Passo 4 — Customizar os agentes
+## Passo 4 — Customizar os agentes (se necessário)
 
 ### Ajustes mínimos necessários
 
@@ -114,7 +116,7 @@ applyTo: "server/src/**/*.ts"
 
 ---
 
-## Passo 5 — Adaptar os Instructions
+## Passo 5 — Adaptar Instructions (se necessário)
 
 Revise cada `.instructions.md` e ajuste:
 - Patterns de `applyTo` para a estrutura do novo projeto
@@ -150,13 +152,16 @@ Crie ou atualize o `AGENTS.md` do novo repositório com:
 
 ## Checklist de replicação
 
-- [ ] Estrutura `.github/` copiada
+- [ ] Repositório criado a partir do template
 - [ ] MCP configurado em `.vscode/mcp.json`
-- [ ] Documentação base criada (`docs/`)
-- [ ] Referências nos agentes atualizadas para paths locais
-- [ ] Instructions adaptados para estrutura do projeto
-- [ ] `AGENTS.md` atualizado
-- [ ] `copilot-instructions.md` adaptado
+- [ ] `docs/domain.md` preenchido com entidades e regras de negócio
+- [ ] `docs/database.md` preenchido com schema e constraints
+- [ ] `docs/api-spec.md` preenchido com endpoints e contratos
+- [ ] `docs/local-setup.md` preenchido com instruções de setup
+- [ ] `CONTEXT_PACK.md` preenchido com snapshot do projeto
+- [ ] `docs/ai/ai-context.md` atualizado com contexto do sistema
+- [ ] ADRs criados para decisões do projeto (`docs/adr/`)
+- [ ] Instructions adaptados para estrutura do projeto (se necessário)
 - [ ] Teste de cada agente realizado
 - [ ] Fluxo end-to-end testado
 

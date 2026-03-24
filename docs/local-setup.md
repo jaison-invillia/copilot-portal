@@ -1,6 +1,8 @@
 # 🛠️ Local Setup
 
-Este documento descreve como preparar e executar o Portal Educacional localmente (backend + frontend).
+<!-- TEMPLATE: Preencha este documento com as instruções de setup do seu projeto. -->
+
+Este documento descreve como preparar e executar o projeto localmente (backend + frontend).
 
 Referências:
 - Visão geral: `README.md`
@@ -15,11 +17,11 @@ Referências:
 ### Ferramentas
 - **Node.js** (LTS recomendado)
 - **npm** ou **pnpm** (usar um padrão no repo)
-- **MySQL 8**
+- **[PREENCHER]** Banco de dados (ex.: MySQL 8, PostgreSQL, etc.)
 - Git
 
 ### Opcional (recomendado)
-- Docker / Docker Compose (para subir MySQL e facilitar setup)
+- Docker / Docker Compose (para subir dependências e facilitar setup)
 
 ---
 
@@ -32,48 +34,22 @@ cd <repo-folder>
 
 ---
 
-## 🗄️ Banco de dados (MySQL 8)
+## 🗄️ Banco de dados
 
-### Opção A) MySQL local instalado
+> **[PREENCHER]** Instruções para configurar o banco de dados do projeto.
 
-1. Inicie o MySQL 8
+### Opção A) Banco local instalado
+
+1. Inicie o banco de dados
 2. Crie o banco:
 
 ```sql
-CREATE DATABASE educational_portal CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-```
-
-3. Crie um usuário (opcional):
-
-```sql
-CREATE USER 'edu_user'@'%' IDENTIFIED BY 'edu_pass';
-GRANT ALL PRIVILEGES ON educational_portal.* TO 'edu_user'@'%';
-FLUSH PRIVILEGES;
+CREATE DATABASE [nome_do_banco] CHARACTER SET utf8mb4;
 ```
 
 ### Opção B) Docker (recomendado)
 
-Crie um `docker-compose.yml` (ou utilize um existente) com MySQL 8:
-
-```yaml
-version: "3.9"
-services:
-  mysql:
-    image: mysql:8
-    container_name: educational-portal-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: educational_portal
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-volumes:
-  mysql_data:
-```
-
-Suba:
+> **[PREENCHER]** Adicione ou referencie o `docker-compose.yml` do projeto.
 
 ```bash
 docker compose up -d
@@ -85,11 +61,9 @@ docker compose up -d
 
 ### Backend
 
-Crie o arquivo:
+Crie o arquivo `backend/.env` baseado em `.env.example`:
 
-- `backend/.env`
-
-Baseie-se em um `.env.example` (recomendado criar no repo). Exemplo mínimo:
+> **[PREENCHER]** Liste as variáveis de ambiente necessárias.
 
 ```env
 # Server
@@ -99,7 +73,7 @@ NODE_ENV=development
 # Database
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=educational_portal
+DB_NAME=[nome_do_banco]
 DB_USER=root
 DB_PASSWORD=root
 
@@ -114,11 +88,7 @@ NEW_RELIC_LICENSE_KEY=
 
 ### Frontend
 
-Crie o arquivo:
-
-- `frontend/.env.local`
-
-Exemplo mínimo:
+Crie o arquivo `frontend/.env.local`:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3001/api/v1
@@ -128,108 +98,64 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:3001/api/v1
 
 ## 🔧 Backend
 
-Entre na pasta:
-
 ```bash
 cd backend
-```
-
-Instale dependências:
-
-```bash
 npm install
 ```
 
 ### Rodar migrations
 
-> A ferramenta de migration (ex.: Prisma, Knex, TypeORM, Flyway etc.) será definida na implementação.
-> Neste momento, o schema referência está em `docs/database.md`.
-
-Estratégia recomendada quando o migrator existir:
+> A ferramenta de migration (ex.: Prisma, Knex, TypeORM, etc.) será definida na implementação.
+> O schema de referência está em `docs/database.md`.
 
 ```bash
-npm run db:migrate
+npm run migrate
 ```
 
-### Seed (opcional)
+### Rodar seeds (opcional)
 
-Para desenvolvimento, pode existir um seed com:
-- 1 curso
-- 3+ aulas
-- 1 usuário demo
-
-Exemplo (quando implementado):
+> **[PREENCHER]** Adicione instruções de seed quando disponíveis.
 
 ```bash
-npm run db:seed
+npm run seed
 ```
 
-### Rodar o backend
+### Iniciar
 
 ```bash
 npm run dev
 ```
 
-Backend esperado:
-- Base URL: `http://localhost:3001`
-- Health: `GET /health` (se implementado)
+Backend disponível em `http://localhost:3001`.
 
 ---
 
-## 🌐 Frontend (Next.js)
-
-Abra outra aba/terminal e entre na pasta:
+## 🌐 Frontend
 
 ```bash
 cd frontend
-```
-
-Instale dependências:
-
-```bash
 npm install
-```
-
-Rodar o frontend:
-
-```bash
 npm run dev
 ```
 
-Frontend esperado:
-- URL: `http://localhost:3000`
+Frontend disponível em `http://localhost:3000`.
 
 ---
 
-## ✅ Teste rápido do fluxo (MVP)
+## ✅ Verificar
 
-1. Registrar usuário:
-   - `POST /api/v1/auth/register`
-
-2. Login:
-   - `POST /api/v1/auth/login`
-   - Copiar `accessToken`
-
-3. Listar cursos:
-   - `GET /api/v1/courses` com header `Authorization: Bearer <token>`
-
-4. Detalhar curso:
-   - `GET /api/v1/courses/{courseId}`
-
-5. Marcar aula como concluída:
-   - `POST /api/v1/courses/{courseId}/lessons/{lessonId}/complete`
-
-6. Progresso:
-   - `GET /api/v1/courses/{courseId}/progress`
-
-7. Certificado:
-   - `GET /api/v1/courses/{courseId}/certificate`
-   - `GET /api/v1/courses/{courseId}/certificate/download`
-
-Contratos completos em:
-- `docs/api-spec.md`
+- Backend: `http://localhost:3001/health`
+- Frontend: `http://localhost:3000`
 
 ---
+
+## 🐛 Troubleshooting
+
+| Problema | Solução |
+|----------|---------|
+| Erro de conexão com banco | Verificar se o banco está rodando e as credenciais em `.env` |
+| Porta em uso | Alterar `PORT` no `.env` |
+| Migrations falham | Verificar se o banco foi criado e credenciais estão corretas |
 
 ## 🧯 Troubleshooting
 

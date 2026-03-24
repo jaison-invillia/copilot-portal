@@ -208,7 +208,7 @@ Formato padrão:
    - Sem regra de negócio em controller.
    - Sem DB direto fora de repositories/adapters.
 4. **Idempotência e unicidade**
-   - Especialmente em progress e certificate.
+   - Conforme definido em `docs/domain.md` e `docs/database.md`.
 5. **Testes acompanham mudanças**
    - Use cases devem ter unit tests; endpoints críticos, integration.
 

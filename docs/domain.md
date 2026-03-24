@@ -1,248 +1,96 @@
 # 📚 Domain Model
 
-Este documento descreve o **modelo de domínio** do Portal Educacional.
+<!-- TEMPLATE: Preencha este documento com o modelo de domínio do seu projeto. -->
+<!-- Consulte docs/engineering-docs-recommendation.md para orientações detalhadas. -->
+
+Este documento descreve o **modelo de domínio** do projeto.
 
 Ele define:
 
--   entidades do sistema
--   relacionamentos
--   regras de negócio
--   estados do domínio
+- entidades do sistema
+- relacionamentos
+- regras de negócio
+- estados do domínio
 
-Para detalhes de arquitetura consulte:
+Para detalhes de arquitetura consulte: `docs/architecture.md`
 
-➡ docs/architecture.md
+Para visão geral do projeto consulte: `README.md`
 
-Para visão geral do projeto consulte:
+---
 
-➡ README.md
+## 🧩 Entidades do Domínio
 
-------------------------------------------------------------------------
+<!-- Liste as entidades principais do sistema. Exemplo: -->
+<!-- User, Order, Product, Payment, etc. -->
 
-# 🧩 Entidades do Domínio
+> **[PREENCHER]** Liste as entidades do domínio do seu projeto.
 
-As principais entidades do sistema são:
+---
 
-    User
-    Course
-    Lesson
-    CourseProgress
-    Certificate
+## Entidade: [Nome]
 
-------------------------------------------------------------------------
+<!-- Repita esta seção para cada entidade. -->
 
-# 👤 User
+> **[PREENCHER]** Descreva cada entidade seguindo o modelo abaixo.
 
-Representa um aluno cadastrado na plataforma.
+### Descrição
 
-## Responsabilidades
+Breve descrição da entidade e seu papel no sistema.
 
--   autenticar no sistema
--   acessar cursos
--   assistir aulas
--   receber certificados
+### Atributos
 
-## Atributos
+```
+id
+[campo1]
+[campo2]
+createdAt
+updatedAt
+```
 
-    id
-    name
-    email
-    passwordHash
-    createdAt
-    updatedAt
+### Regras
 
-## Regras
+- [Regra de negócio 1]
+- [Regra de negócio 2]
 
--   email deve ser único
--   senha deve ser armazenada criptografada
--   usuário precisa estar autenticado para acessar cursos
+---
 
-------------------------------------------------------------------------
+## 🔗 Relacionamentos
 
-# 📚 Course
+<!-- Descreva os relacionamentos entre entidades. Pode usar diagrama ASCII ou texto. -->
 
-Representa um curso disponível na plataforma.
+> **[PREENCHER]** Mapeie os relacionamentos principais (1:N, N:N, etc.)
 
-Um curso é composto por várias aulas.
+```
+EntityA
+  │ 1..*
+  ▼
+EntityB ─── belongs to ─── EntityC
+```
 
-## Atributos
+---
 
-    id
-    title
-    description
-    createdAt
-    updatedAt
+## 📊 Regras de Negócio
 
-## Regras
+<!-- Liste as regras de negócio globais do sistema, agrupadas por contexto. -->
 
--   um curso deve possuir pelo menos uma aula
--   cursos podem ser acessados apenas por usuários autenticados
+> **[PREENCHER]** Descreva as regras de negócio do seu domínio.
 
-------------------------------------------------------------------------
+### [Contexto 1]
 
-# 🎥 Lesson
+- [Regra]
 
-Representa uma aula dentro de um curso.
+### [Contexto 2]
 
-As aulas são hospedadas no YouTube.
+- [Regra]
 
-## Atributos
+---
 
-    id
-    courseId
-    title
-    description
-    youtubeUrl
-    order
-    createdAt
+## 🔄 Fluxo Principal
 
-## Regras
+<!-- Descreva o fluxo principal do sistema (happy path). -->
 
--   cada aula pertence a um único curso
--   aulas devem possuir ordem dentro do curso
--   youtubeUrl deve ser válida
+> **[PREENCHER]** Descreva o fluxo principal do usuário no sistema.
 
-------------------------------------------------------------------------
-
-# 📊 CourseProgress
-
-Representa o progresso de um aluno em um curso.
-
-Cada registro indica se o aluno concluiu uma aula.
-
-## Atributos
-
-    id
-    userId
-    courseId
-    lessonId
-    completed
-    completedAt
-
-## Regras
-
--   progresso é registrado por aula
--   um aluno não pode ter progresso duplicado para a mesma aula
--   progresso pertence a um usuário e um curso
-
-------------------------------------------------------------------------
-
-# 🏆 Certificate
-
-Representa um certificado emitido para um aluno.
-
-Certificados são emitidos quando o curso é concluído.
-
-## Atributos
-
-    id
-    userId
-    courseId
-    issuedAt
-    certificateCode
-
-## Regras
-
--   certificado só pode ser emitido se o curso estiver completo
--   certificado deve possuir código único
-
-------------------------------------------------------------------------
-
-# 🔗 Relacionamentos
-
-Relacionamentos principais do domínio:
-
-    User
-      │
-      │ 1..*
-      ▼
-    CourseProgress
-      ▲
-      │
-    Lesson ─── belongs to ─── Course
-      │
-      ▼
-    Certificate (after completion)
-
-------------------------------------------------------------------------
-
-# 📊 Regras de Negócio
-
-## Cadastro de usuário
-
--   usuário cria conta
--   email deve ser único
--   senha deve ser criptografada
-
-------------------------------------------------------------------------
-
-## Acesso aos cursos
-
--   somente usuários autenticados podem acessar cursos
-
-------------------------------------------------------------------------
-
-## Progresso de aula
-
-Quando um aluno assistir uma aula:
-
-1.  frontend envia evento para API
-2.  progresso é registrado
-3.  sistema recalcula progresso do curso
-
-------------------------------------------------------------------------
-
-## Conclusão de curso
-
-Um curso é considerado concluído quando:
-
-    todas as aulas do curso estão marcadas como completas
-
-------------------------------------------------------------------------
-
-## Emissão de certificado
-
-Quando o curso estiver completo:
-
-1.  sistema verifica progresso
-2.  certificado é gerado
-3.  certificado fica disponível para download
-
-------------------------------------------------------------------------
-
-# 🔄 Fluxo do Domínio
-
-Fluxo típico do sistema:
-
-    User registers
-            │
-            ▼
-    User logs in
-            │
-            ▼
-    User selects course
-            │
-            ▼
-    User watches lessons
-            │
-            ▼
-    Progress is recorded
-            │
-            ▼
-    Course completed
-            │
-            ▼
-    Certificate issued
-
-------------------------------------------------------------------------
-
-# 📈 Possíveis Evoluções do Domínio
-
-O modelo pode evoluir para incluir:
-
--   instrutores
--   avaliações de cursos
--   quizzes
--   trilhas de aprendizado
--   certificados verificáveis
--   gamificação
+```
+[Passo 1] → [Passo 2] → [Passo 3] → [Resultado]
+```

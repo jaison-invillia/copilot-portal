@@ -40,11 +40,11 @@ Main → Interfaces → Application → Domain
 
 ## Naming conventions
 
-- **Files/folders**: `kebab-case` (e.g., `complete-lesson.ts`, `course-progress.ts`)
-- **Classes**: `PascalCase` (e.g., `CompleteLessonUseCase`, `CourseRepository`)
+- **Files/folders**: `kebab-case` (e.g., `create-order.ts`, `order-items.ts`)
+- **Classes**: `PascalCase` (e.g., `CreateOrderUseCase`, `OrderRepository`)
 - **Functions/variables**: `camelCase`
 - **Constants**: `UPPER_SNAKE_CASE`
-- **Ports**: prefix with interface purpose (e.g., `CourseProgressRepository`, `TokenProvider`)
+- **Ports**: prefix with interface purpose (e.g., `OrderRepository`, `TokenProvider`)
 
 ## DTOs vs Domain entities
 

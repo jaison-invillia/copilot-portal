@@ -4,7 +4,7 @@
 Accepted
 
 ## Context
-O Portal Educacional precisa de uma arquitetura que:
+O projeto precisa de uma arquitetura que:
 
 - mantenha **separação clara de responsabilidades**
 - facilite **testabilidade** (principalmente de regras de negócio)
@@ -12,7 +12,7 @@ O Portal Educacional precisa de uma arquitetura que:
 - permita evolução do sistema sem reescritas grandes
 - seja simples de orientar desenvolvimento humano e assistido por IA
 
-O backend terá requisitos como autenticação, controle de progresso e emissão de certificados — regras que tendem a crescer com o tempo. Uma arquitetura “framework-first” pode tornar mudanças mais custosas e dificultar manutenção.
+O backend terá regras de negócio que tendem a crescer com o tempo. Uma arquitetura "framework-first" pode tornar mudanças mais custosas e dificultar manutenção.
 
 ## Decision
 Adotaremos **Clean Architecture** no backend, com dependências apontando **sempre para dentro** (domínio).
@@ -68,4 +68,4 @@ A estrutura de pastas recomendada e detalhes completos estão em:
 
 ## Notes
 - Esta ADR define o **estilo arquitetural** do backend.
-- Decisões complementares (auth, progresso, banco) devem ser registradas em ADRs separadas.
+- Decisões complementares (auth, banco, etc.) devem ser registradas em ADRs separadas.

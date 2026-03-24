@@ -31,9 +31,7 @@ Use este fluxo quando for criar um projeto do zero com a estrutura de agentes.
 ```
 /new-feature
 
-Preciso criar um portal educacional onde alunos se cadastram,
-acessam cursos, assistem aulas no YouTube, marcam progresso por aula
-e recebem certificado ao completar o curso.
+Preciso criar [descreva o sistema e suas funcionalidades principais].
 Crie issues para as funcionalidades principais do MVP.
 ```
 
@@ -54,7 +52,7 @@ incluindo estilo arquitetural, estrutura de pastas e ADRs iniciais.
 O **Architect** vai:
 - Definir camadas e dependências
 - Sugerir estrutura de pastas
-- Propor ADRs (ex: Clean Architecture, JWT, MySQL)
+- Propor ADRs
 - Postar a análise como comentário no issue
 
 ### Passo 3: Gerar o scaffold
@@ -96,9 +94,8 @@ Fluxo completo: demanda → issue → análise → código → testes → review
 ```
 /new-feature
 
-Usuários precisam poder marcar aulas como concluídas.
-O progresso deve ser por aula, idempotente, e vinculado ao usuário logado.
-Ao completar todas as aulas de um curso, o progresso do curso deve ir para 100%.
+[Descreva a funcionalidade que precisa ser implementada,
+incluindo regras de negócio e comportamento esperado.]
 ```
 
 O **Product Owner** cria o issue com:
@@ -168,8 +165,7 @@ O **Documenter** atualiza docs caso a feature tenha introduzido:
 Se preferir rodar o ciclo inteiro de uma vez, use a skill `full-feature-cycle`:
 
 ```
-Preciso de uma feature para marcar aulas como concluídas.
-O progresso deve ser por aula, idempotente, e vinculado ao usuário logado.
+[Descreva a feature que precisa ser implementada com detalhes de negócio.]
 ```
 
 Ao detectar que se trata de uma feature completa, o Copilot pode acionar a skill que executa PO → Architect → Staff → QA → Reviewer → Documenter sequencialmente.
@@ -183,9 +179,7 @@ Ao detectar que se trata de uma feature completa, o Copilot pode acionar a skill
 ```
 /fix-bug #55
 
-O endpoint POST /courses/1/lessons/3/complete está retornando 500
-quando o usuário tenta completar uma aula que já foi completada.
-Deveria retornar 200 (idempotente).
+[Descreva o bug: o que acontece, o que deveria acontecer.]
 ```
 
 ### Opção B: Bug ainda não tem issue
@@ -193,9 +187,8 @@ Deveria retornar 200 (idempotente).
 ```
 /fix-bug
 
-O certificado não está sendo gerado quando o aluno completa
-a última aula do curso. O progresso mostra 100% mas o
-endpoint GET /courses/1/certificate retorna 404.
+[Descreva o bug com detalhes do comportamento incorreto
+e o comportamento esperado.]
 ```
 
 Em ambos os casos, o **Staff**:
@@ -224,9 +217,7 @@ Para mudanças técnicas que não vêm de demanda de negócio.
 ```
 @architect
 
-Preciso extrair a lógica de validação de progresso que está
-duplicada nos use cases CompleteLesson e GetCourseProgress
-para um domain service compartilhado. Analise o impacto.
+[Descreva a refatoração necessária e peça análise de impacto.]
 ```
 
 O **Architect** avalia:
@@ -239,8 +230,7 @@ O **Architect** avalia:
 ```
 @staff
 
-Implemente a refatoração sugerida pelo Architect,
-extraindo a validação de progresso para um domain service.
+Implemente a refatoração sugerida pelo Architect.
 ```
 
 ### Passo 3: Review e docs
@@ -259,14 +249,14 @@ Quando você quer saber **que testes escrever** antes de implementar.
 ```
 @test-advisor
 
-Vou implementar o endpoint POST /courses/{courseId}/lessons/{lessonId}/complete.
+Vou implementar [descreva o endpoint ou funcionalidade].
 Quais testes devo escrever? Considere unit, integration e edge cases.
 ```
 
 O **Test Advisor** retorna:
 - Testes unitários (use case com mocks de ports)
 - Testes de integração (repository + banco, endpoint HTTP)
-- Edge cases (aula já completada, curso inexistente, usuário sem permissão)
+- Edge cases (dados inválidos, recurso inexistente, usuário sem permissão)
 - Estratégia de mocking
 - Fixtures necessárias
 
@@ -279,14 +269,14 @@ O **Test Advisor** retorna:
 ```
 @metrifier
 
-Vamos lançar o módulo de certificados. Quais métricas e
+Vamos lançar [descreva o módulo/feature]. Quais métricas e
 instrumentações devemos adicionar?
 ```
 
 O **Metrifier** sugere:
-- Métricas de negócio (certificados gerados por dia, taxa de conclusão)
-- Métricas técnicas (latência do endpoint, taxa de erros)
-- Métricas operacionais (uso de memória na geração de PDF)
+- Métricas de negócio (operações por dia, taxas de conversão)
+- Métricas técnicas (latência, taxa de erros)
+- Métricas operacionais (uso de recursos)
 - Alertas recomendados
 - Estrutura de dashboard
 
@@ -299,82 +289,21 @@ Depois que o código foi implementado mas antes do merge:
 ```
 @qa #42
 
-Valide a implementação do issue #42 (completar aula).
-Execute os testes e verifique os critérios de aceite.
+Valide se a implementação atende aos critérios de aceite do issue #42.
 ```
 
 O **QA**:
-- Roda a suíte de testes automatizados
-- Valida cada critério de aceite do issue
-- Testa edge cases (inputs inválidos, dados duplicados)
-- Posta relatório estruturado no issue
+1. Lê os critérios de aceite do issue
+2. Executa os testes automatizados
+3. Testa edge cases e cenários de segurança
+4. Posta relatório estruturado no issue
 
 ---
 
-## Cenário 8 — Triagem completa de demanda
+## Dicas gerais
 
-Quando uma demanda nova chega e precisa passar por todo o pipeline de análise antes da implementação.
-
-```
-Preciso que alunos possam avaliar cursos com uma nota de 1 a 5 estrelas,
-com comentário opcional. A média deve aparecer na listagem de cursos.
-```
-
-A skill `issue-triage` orquestra automaticamente:
-1. **Product Owner**: Esclarece, cria issue com critérios de aceite
-2. **Architect**: Analisa impacto arquitetural (nova entidade? nova tabela? novos endpoints?)
-3. **Staff**: Monta plano de implementação e documenta no issue
-
-O resultado é um issue **pronto para implementar** com:
-- Contexto de negócio
-- Critérios de aceite
-- Análise arquitetural
-- Plano de implementação
-
-Depois, basta rodar:
-```
-/implement-issue #N
-```
-
----
-
-## Dicas de uso
-
-### Quando usar cada abordagem
-
-| Situação | O que fazer |
-|----------|-------------|
-| Demanda vaga, precisa de esclarecimento | `/new-feature` (PO faz perguntas) |
-| Issue já existe, quer implementar | `/implement-issue #N` |
-| Bug reportado pelo usuário | `/fix-bug` com descrição |
-| Refatoração técnica | `@architect` para analisar + `@staff` |
-| Dúvida sobre testes | `@test-advisor` |
-| PR pronta para review | `/review-pr #N` |
-| PR mergeada, precisa documentar | `/document-pr #N` |
-| Quer métricas/alertas | `@metrifier` |
-| Quer validar antes do merge | `@qa #N` |
-
-### Boas práticas
-
-1. **Sempre comece pelo PO** para features novas — garante issue bem definido
-2. **Sempre passe pelo Architect** antes de implementar — evita retrabalho
-3. **Deixe o Staff orquestrar** — ele sabe a ordem das dependências
-4. **Não pule o review** — o Reviewer valida Clean Architecture, segurança e testes
-5. **Documente após merge** — o Documenter garante que os docs ficam atualizados
-6. **Consulte o Test Advisor cedo** — saber os testes antes ajuda a implementar melhor
-
-### O que NÃO fazer
-
-- Não invoque `@backend-dev` ou `@frontend-dev` diretamente — eles são sub-agentes do Staff
-- Não pule a documentação — docs desatualizados degradam a qualidade dos agentes
-- Não ignore as perguntas do PO — elas garantem que o issue será claro
-- Não implemente sem issue — toda mudança deve ser rastreável
-
----
-
-## Referências
-
-- [AGENTS.md](../../../AGENTS.md) — Definição completa dos agentes
-- [docs/agent-task-flow.md](../agent-task-flow.md) — Fluxos detalhados e regras
-- [docs/ai/agent-squad-guide.md](agent-squad-guide.md) — Metodologia e customização
-- [docs/ai/replication-guide.md](replication-guide.md) — Como replicar em outro repo
+- **Documente antes de codificar**: Os agentes funcionam melhor quando `domain.md`, `api-spec.md` e `database.md` estão preenchidos
+- **Use slash commands para fluxos formais**: `/new-feature`, `/implement-issue`, etc.
+- **Use `@agente` para consultas rápidas**: `@test-advisor`, `@metrifier`, `@architect`
+- **Confie no Staff para orquestrar**: O `@staff` sabe delegar para os sub-agentes corretos
+- **Atualize a documentação**: Use `/document-pr` após cada merge significativo
