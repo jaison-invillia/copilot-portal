@@ -51,7 +51,7 @@ Agents must read the following files before implementing changes:
 | 8 | **Reviewer** | `reviewer.agent.md` | ✅ Yes | read, search, github/* | — |
 | 9 | **Documenter** | `documenter.agent.md` | ✅ Yes | read, edit, search, github/* | — |
 | 10 | **Metrifier** | `metrifier.agent.md` | ✅ Yes | read, search | — |
-| 11 | **Project Setup** | `project-setup.agent.md` | ✅ Yes | read, edit, search, execute | — |
+| 11 | **Project Setup** | `project-setup.agent.md` | ✅ Yes | read, edit, search, execute, github/* | — |
 
 ---
 
@@ -208,15 +208,22 @@ Suggests metrics and observability instrumentation.
 
 ### 11. Project Setup (`project-setup`)
 
-Interactively configures the project's technology stack and updates all template documentation.
+First-use onboarding wizard that detects the environment, configures the project's technology stack, sets up tooling integrations, and validates Copilot readiness.
 
 **Responsibilities:**
+- Detect existing environment before asking questions (Phase 0: manifests, MCP servers, placeholders)
 - Collect technology choices from the user (language, framework, database, APM, etc.)
+- Collect tooling & integration preferences (issue tracker, MCP servers, doc hosting)
 - Update all `[PREENCHER]` placeholders across docs and configuration
+- Update `.vscode/mcp.json` with additional MCP servers if needed
 - Adapt instruction files (`applyTo` patterns) to match the chosen stack
+- Adapt agents if issue tracker is not GitHub Issues
+- Validate that all setup-scope placeholders were replaced (post-apply check)
+- Generate **Copilot Productivity Readiness** checklist as final output
 - Suggest ADRs for key technical decisions
+- Support idempotent re-runs (detect already-configured categories, skip or update)
 
-**Triggers:** "setup project", "configurar projeto", "definir stack", "adaptar template"
+**Triggers:** "setup project", "configurar projeto", "definir stack", "adaptar template", "project readiness", "check setup"
 
 ---
 
@@ -298,7 +305,7 @@ architect → staff → [backend-dev/frontend-dev] → reviewer → documenter
 
 | Command | Agent | Purpose |
 |---------|-------|---------|
-| `/setup-project` | project-setup | Configure stack and update docs |
+| `/setup-project` | project-setup | Detect environment, configure stack, set up tooling, validate readiness |
 | `/new-feature` | product-owner | Start new feature flow |
 | `/analyze-issue` | architect | Architectural analysis |
 | `/implement-issue` | staff | Plan and implement |

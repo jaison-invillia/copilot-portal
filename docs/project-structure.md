@@ -10,7 +10,7 @@ Objetivo:
 Referências:
 - `README.md`
 - `docs/architecture.md`
-- `docs/engineering-guidelines.md`
+- `docs/engineer-guidelines.md`
 - `docs/ai/ai-context.md`
 - `docs/agent-task-flow.md`
 
@@ -29,7 +29,7 @@ project-root/
     domain.md
     database.md
     api-spec.md
-    engineering-guidelines.md
+    engineer-guidelines.md
     observability.md
     security.md
     ai/ai-context.md

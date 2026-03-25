@@ -173,7 +173,7 @@ Uma tarefa só é “done” quando:
   - `docs/domain.md`
   - `docs/database.md`
   - `docs/api-spec.md`
-  - este documento `docs/engineering-guidelines.md`
+  - este documento `docs/engineer-guidelines.md`
 - Não inventar endpoints nem tabelas fora da documentação.
 - Em caso de dúvida: propor alteração na documentação **antes** de gerar código.
 - Evitar “embelezamento” de código (emojis, comentários redundantes, etc.).

@@ -26,7 +26,7 @@ Antes de gerar código, a IA deve ler:
 3. `docs/domain.md`
 4. `docs/database.md`
 5. `docs/api-spec.md`
-6. `docs/engineering-guidelines.md`
+6. `docs/engineer-guidelines.md`
 
 Esses documentos são a **fonte oficial de verdade do projeto**.
 

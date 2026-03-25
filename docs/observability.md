@@ -4,7 +4,7 @@ Este documento define o padrão de **observabilidade** do projeto: logs, correla
 
 Referências:
 - Arquitetura: `docs/architecture.md`
-- Guidelines: `docs/engineering-guidelines.md`
+- Guidelines: `docs/engineer-guidelines.md`
 - API errors padrão: `docs/api-spec.md`
 - AI context: `docs/ai/ai-context.md`
 

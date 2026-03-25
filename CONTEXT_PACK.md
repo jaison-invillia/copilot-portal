@@ -264,5 +264,5 @@ docs/api-spec.md
 docs/security.md
 docs/observability.md
 docs/project-structure.md
-docs/engineering-guidelines.md
+docs/engineer-guidelines.md
 docs/engineering-docs-recommendation.md

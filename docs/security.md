@@ -4,7 +4,7 @@ Este documento define o baseline de **segurança** do projeto: autenticação, a
 
 Referências:
 - Arquitetura: `docs/architecture.md`
-- Guidelines: `docs/engineering-guidelines.md`
+- Guidelines: `docs/engineer-guidelines.md`
 - Contratos/API: `docs/api-spec.md`
 - Banco: `docs/database.md`
 - Observabilidade: `docs/observability.md`

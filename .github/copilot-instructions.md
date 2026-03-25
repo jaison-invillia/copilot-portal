@@ -17,7 +17,7 @@ Before creating or changing code, always consult:
 4. `docs/domain.md`
 5. `docs/database.md`
 6. `docs/api-spec.md`
-7. `docs/engineering-guidelines.md`
+7. `docs/engineer-guidelines.md`
 8. `docs/project-structure.md`
 9. `docs/security.md`
 10. `docs/observability.md`
@@ -125,7 +125,7 @@ When generating code changes, include:
 - Domain-specific business rules: `docs/domain.md` + relevant ADRs
 - Logging/request correlation: `docs/observability.md`
 - Architectural boundaries: `docs/architecture.md` + relevant ADRs
-- Engineering best practices: `docs/engineering-guidelines.md`
+- Engineering best practices: `docs/engineer-guidelines.md`
 
 ---
 
@@ -147,13 +147,13 @@ This repository uses a squad of 11 specialized AI agents defined in `.github/age
 | `reviewer` | Pull Request code review |
 | `documenter` | Post-merge documentation updates, ADR creation |
 | `metrifier` | Metrics and observability recommendations |
-| `project-setup` | Initial stack configuration, template customization |
+| `project-setup` | Initial stack configuration, tooling setup, MCP servers, readiness validation |
 
 ### Slash commands (prompts)
 
 | Command | Purpose |
 |---------|---------|
-| `/setup-project` | Configure stack and update docs |
+| `/setup-project` | Detect environment, configure stack, set up tooling, validate readiness |
 | `/new-feature` | Start new feature (PO flow) |
 | `/analyze-issue` | Architectural analysis |
 | `/implement-issue` | Plan and implement issue |
