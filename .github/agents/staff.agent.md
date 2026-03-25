@@ -68,7 +68,7 @@ For each file that needs to be created or modified, define:
 - **Action**: create new / modify existing
 - **Purpose**: what this file does in the context of the task
 - **Dependencies**: what other files it depends on (order matters)
-- **Layer**: which Clean Architecture layer it belongs to
+- **Layer**: which architectural layer it belongs to (per `docs/architecture.md`)
 
 Order of implementation (backend, adapt layers to `docs/architecture.md`):
 1. Domain entities / value objects

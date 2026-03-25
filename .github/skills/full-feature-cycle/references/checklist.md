@@ -11,7 +11,7 @@ Use this checklist to verify a feature is truly complete before closing the issu
 - [ ] Implementation plan documented on the issue
 
 ## Implementation
-- [ ] Code follows Clean Architecture boundaries
+- [ ] Code follows architectural boundaries per `docs/architecture.md`
 - [ ] Domain layer has no framework imports
 - [ ] Use cases depend only on ports (interfaces)
 - [ ] Controllers contain no business logic

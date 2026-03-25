@@ -154,7 +154,7 @@ O **Staff** orquestra tudo automaticamente:
 ```
 
 O **Reviewer** verifica:
-- Clean Architecture (sem violação de camadas)
+- Estilo arquitetural (sem violação de camadas, conforme `docs/architecture.md`)
 - Aderência a `api-spec.md` e `database.md`
 - Segurança (validação, dados sensíveis)
 - Observabilidade (requestId, logs)
@@ -234,7 +234,7 @@ Para mudanças técnicas que não vêm de demanda de negócio.
 
 O **Architect** avalia:
 - Quais camadas e arquivos são afetados
-- Se a mudança respeita as fronteiras de Clean Architecture
+- Se a mudança respeita as fronteiras arquiteturais definidas em `docs/architecture.md`
 - Se é necessário ADR
 
 ### Passo 2: Implementar

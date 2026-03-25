@@ -125,12 +125,12 @@ Update the following files with the collected information:
 
 ### Step 4 — Create recommended ADRs
 Suggest creating ADRs for key decisions:
-- Architecture style → `docs/adr/0001-[style].md`
-- Database choice → `docs/adr/0002-database-[engine].md`
-- Frontend framework → `docs/adr/0003-frontend-[framework].md`
-- Auth strategy → `docs/adr/0004-auth-[method].md`
+- Architecture style → `docs/adr/NNNN-[style].md`
+- Database choice → `docs/adr/NNNN-database-[engine].md`
+- Frontend framework → `docs/adr/NNNN-frontend-[framework].md`
+- Auth strategy → `docs/adr/NNNN-auth-[method].md`
 
-Use the template from `docs/adr/0000-adr-template.md`.
+Use the template from `docs/adr/0000-adr-template.md`. Number ADRs sequentially starting from `0001`.
 
 ### Step 5 — Report changes
 List all files modified and what was changed.

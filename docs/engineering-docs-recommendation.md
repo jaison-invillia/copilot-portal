@@ -125,8 +125,9 @@ Documentos que aumentam a qualidade e produtividade da equipe.
   - Contexto (por que a decisão foi necessária)
   - Decisão (o que foi decidido)
   - Consequências (positivas e negativas)
-- **Exemplo neste repo**: `docs/adr/0001-clean-architecture.md`
+- **Exemplo neste repo**: `docs/adr/0000-adr-template.md` (template com instruções e mini-exemplo)
 - **Convenção**: Numeração sequencial `NNNN-slug.md` em `docs/adr/`
+- **Processo completo**: ver seção ADRs em `docs/engineer-guidelines.md`
 
 ---
 

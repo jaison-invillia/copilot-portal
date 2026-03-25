@@ -1,6 +1,6 @@
 ---
 description: "Use when dealing with authentication, authorization, input validation, sensitive data handling, JWT tokens, password hashing, or access control."
-applyTo: "backend/src/**/*.ts"
+applyTo: "backend/src/**"
 ---
 
 # Security Guidelines

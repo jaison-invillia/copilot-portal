@@ -159,7 +159,7 @@ Preferir:
 - controllers com lógica de negócio
 - queries SQL espalhadas
 - dependências circulares
-- violação da Clean Architecture
+- violação dos limites arquiteturais definidos em `docs/architecture.md`
 - geração de código não utilizado
 
 ---

@@ -37,9 +37,8 @@ project-root/
     project-structure.md
 
     adr/
-      0001-clean-architecture.md
-      0008-structured-logging.md
-      [outros ADRs do projeto]
+      0000-adr-template.md
+      [ADRs do projeto]
 
   backend/
     package.json
@@ -58,7 +57,7 @@ project-root/
 
 <!-- Adapte a estrutura conforme o estilo arquitetural definido em docs/architecture.md -->
 
-### Estrutura de pastas (exemplo para Clean Architecture)
+### Estrutura de pastas (exemplo)
 
 ```
 backend/
@@ -95,16 +94,16 @@ backend/
       server/                 # server bootstrap
 ```
 
-> **Nota:** Esta estrutura é um exemplo baseado em Clean Architecture. Adapte conforme o estilo arquitetural e a linguagem do seu projeto.
+> **Nota:** Esta estrutura é um exemplo baseado em arquitetura em camadas. Adapte conforme o estilo arquitetural e a linguagem do seu projeto (ver `docs/architecture.md`).
 
 ### Regras rápidas
-- **Domain**: zero dependência de framework/DB.
-- **Application**: use cases + ports; não importa infra/interfaces.
-- **Interfaces**: controllers/DTOs; sem regra de negócio.
-- **Infrastructure**: DB/repos/providers/logging/observabilidade.
-- **Main**: única camada que "junta tudo".
+- **Domínio/Modelos**: zero dependência de framework/DB.
+- **Aplicação/Serviços**: casos de uso + abstrações; não importa infra/interfaces.
+- **Interfaces/Controllers**: handlers HTTP/DTOs; sem regra de negócio.
+- **Infraestrutura**: DB/repos/providers/logging/observabilidade.
+- **Composição/Main**: única camada que "junta tudo".
 
-> Adapte camadas e regras conforme o estilo arquitetural do projeto.
+> Adapte camadas e regras conforme o estilo arquitetural do projeto (ver `docs/architecture.md`).
 
 Detalhes completos em: `docs/architecture.md`.
 

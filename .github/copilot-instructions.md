@@ -39,21 +39,21 @@ If a feature requires a new endpoint/table/entity:
 2) only then generate code.
 
 ### Architecture boundaries (backend)
-Backend must follow the architectural style defined in `docs/architecture.md`.
+Backend must follow the architectural style and layer rules defined in `docs/architecture.md`.
 
-If the project adopts Clean Architecture (see ADR-0001):
+General rules (adapt to the project's architectural style):
 
-- `domain` has **no framework/DB**
-- `application` contains **use cases + ports**
-- `interfaces` contains **HTTP controllers/routes/DTOs**
-- `infrastructure` contains **DB repositories/providers/logging/observability**
-- `main` is the **composition root** (wiring only)
+- Business/domain layer has **no framework/DB dependencies**
+- Application/service layer contains **use cases + abstractions (ports)**
+- Interface/controller layer contains **HTTP handlers/routes/DTOs**
+- Infrastructure layer contains **DB repositories/providers/logging/observability**
+- Composition root is for **wiring only**
 
 **Forbidden**
 - business logic in controllers
 - direct DB access outside repositories/adapters
-- `domain` importing `application/interfaces/infrastructure`
-- `application` importing `interfaces/infrastructure` (depend on ports only)
+- inner layers importing outer layers
+- application layer importing infrastructure (depend on abstractions only)
 
 ### Security and privacy
 Follow `docs/security.md`:
@@ -123,8 +123,8 @@ When generating code changes, include:
 - Auth flows and response shapes: `docs/api-spec.md`
 - DB constraints and indexes: `docs/database.md`
 - Domain-specific business rules: `docs/domain.md` + relevant ADRs
-- Logging/request correlation: `docs/observability.md` + ADR `0008`
-- Architectural boundaries: `docs/architecture.md` + ADR `0001`
+- Logging/request correlation: `docs/observability.md`
+- Architectural boundaries: `docs/architecture.md` + relevant ADRs
 - Engineering best practices: `docs/engineering-guidelines.md`
 
 ---

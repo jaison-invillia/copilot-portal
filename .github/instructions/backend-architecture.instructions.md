@@ -5,8 +5,8 @@ applyTo: "backend/src/**"
 
 # Backend Architecture Guidelines
 
-> These guidelines assume the project uses Clean Architecture (see ADR-0001).
-> If a different architectural style is adopted, adapt these rules accordingly and update this file.
+> These guidelines enforce architectural layer boundaries as defined in `docs/architecture.md`.
+> Adapt the rules below to match the architectural style adopted by the project.
 
 ## Architecture layers (dependency direction: outer → inner)
 

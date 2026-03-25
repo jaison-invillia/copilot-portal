@@ -131,7 +131,7 @@ Post a comment on the issue/PR:
 ### Documentation Updated
 - [x] `docs/api-spec.md` — added endpoint POST /api/v1/...
 - [x] `docs/database.md` — added table `new_table`
-- [ ] ADR created: `docs/adr/0009-<slug>.md`
+- [ ] ADR created: `docs/adr/NNNN-<slug>.md`
 
 ### Summary
 [Brief description of documentation changes made]

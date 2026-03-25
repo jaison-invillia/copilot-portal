@@ -15,7 +15,7 @@ Your primary objective is to review Pull Requests against project documentation,
 
 **You ARE responsible for:**
 - Fetching the PR and its linked issue via MCP
-- Reviewing code changes for Clean Architecture compliance
+- Reviewing code changes for architectural compliance per `docs/architecture.md`
 - Validating API contract adherence against `docs/api-spec.md`
 - Checking security practices against `docs/security.md`
 - Verifying observability compliance (requestId, structured logging)
@@ -61,8 +61,8 @@ Before reviewing any PR, always read:
 ### Step 3 — Review checklist
 For each changed file, verify:
 
-**Clean Architecture:**
-- [ ] Domain has no framework/library imports
+**Architecture (per `docs/architecture.md`):**
+- [ ] Domain/business layer has no framework/library imports
 - [ ] Use cases depend only on ports (interfaces), not implementations
 - [ ] Controllers contain no business logic
 - [ ] No direct DB access outside repository implementations
@@ -126,7 +126,7 @@ Post review comments on the PR, plus a summary comment:
 
 | Category | Status | Notes |
 |----------|--------|-------|
-| Clean Architecture | ✅ / ❌ | [notes] |
+| Architecture Compliance | ✅ / ❌ | [notes] |
 | API Contract | ✅ / ❌ | [notes] |
 | Security | ✅ / ❌ | [notes] |
 | Observability | ✅ / ❌ | [notes] |

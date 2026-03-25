@@ -49,32 +49,25 @@ Monitoring
 
 <!-- [PREENCHER] Adapte conforme o estilo arquitetural adotado no projeto. -->
 
-Backend follows **[PREENCHER] estilo arquitetural** (ex.: Clean Architecture, Hexagonal, MVC).
+Backend follows **[PREENCHER] estilo arquitetural** (ex.: Clean Architecture, Hexagonal, Modular, MVC).
 
 Layers:
 
-domain
-application
-interfaces
-infrastructure
-main
+[PREENCHER] Liste as camadas conforme o estilo adotado.
 
 Dependency direction:
 
-interfaces → application → domain
-infrastructure → application → domain
-main → all layers (composition root only)
+[PREENCHER] Defina a direção de dependência entre camadas.
 
 Rules:
 
-- Domain must not depend on frameworks or infrastructure
-- Controllers must not contain business logic
-- Database access must happen through repositories
-- Use cases live in the application layer
+- Domain/business logic must not depend on frameworks or infrastructure
+- Controllers/handlers must not contain business logic
+- Database access must happen through abstractions (repositories/adapters)
+- Follow the layer boundaries defined in the architectural style
 
 Reference:
 docs/architecture.md
-ADR-0001
 
 ---
 
@@ -167,7 +160,6 @@ Monitoring:
 
 Reference:
 docs/observability.md
-ADR-0008
 
 ---
 
@@ -198,7 +190,7 @@ AI assistants must:
 - Read docs before implementing features
 - Never invent API endpoints
 - Never invent database tables
-- Respect Clean Architecture boundaries
+- Respect architectural boundaries defined in `docs/architecture.md`
 
 Preferred workflow:
 
@@ -214,10 +206,8 @@ Preferred workflow:
 
 # Key ADR Decisions
 
-ADR-0001 Clean Architecture
-ADR-0008 Structured Logging
-
-> **[PREENCHER]** Adicione ADRs conforme decisões arquiteturais do seu projeto.
+> **[PREENCHER]** Registre aqui as ADRs do projeto conforme decisões forem tomadas.
+> Use `docs/adr/0000-adr-template.md` como base para criar novas ADRs.
 
 ---
 

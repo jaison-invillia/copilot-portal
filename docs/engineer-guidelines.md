@@ -22,11 +22,39 @@ Referências:
 
 ## 🏗️ Arquitetura
 
-As decisões arquiteturais (incluindo **Clean Architecture**, camadas e regras de dependência) estão definidas em:
+As decisões arquiteturais (estilo, camadas e regras de dependência) estão definidas em:
 
 ➡ `docs/architecture.md`
 
 **Regra:** todas as contribuições devem respeitar os limites e responsabilidades descritos nesse documento.
+
+---
+
+## 📝 ADRs (Architecture Decision Records)
+
+ADRs registram decisões arquiteturais significativas do projeto. Cada ADR é um documento curto com contexto, decisão, consequências e mitigações.
+
+### Quando criar uma ADR?
+- Escolha de estilo arquitetural, banco de dados, framework ou linguagem
+- Padrão de autenticação/autorização
+- Estratégia de logging/observabilidade
+- Qualquer decisão técnica que afete múltiplos componentes ou seja difícil de reverter
+
+### Convenções
+- **Diretório:** `docs/adr/`
+- **Numeração:** sequencial com 4 dígitos (`0001`, `0002`, ...)
+- **Nome do arquivo:** `NNNN-titulo-descritivo.md` em kebab-case
+- **Template:** copiar `docs/adr/0000-adr-template.md` como base
+- **Ciclo de vida:** `Proposed` → `Accepted` → `Deprecated` → `Superseded by ADR-NNNN`
+- **Aprovação:** toda ADR deve ser submetida via PR para revisão do time
+
+### Processo
+1. Copie `docs/adr/0000-adr-template.md` como `docs/adr/NNNN-titulo.md`
+2. Preencha todas as seções (contexto, alternativas, decisão, consequências)
+3. Abra um PR para revisão
+4. Após aprovação, mude o status para `Accepted`
+
+> Consulte `docs/adr/0000-adr-template.md` para o template completo com instruções e mini-exemplo.
 
 ---
 

@@ -45,11 +45,11 @@ Estes docs já estão preenchidos com padrões genéricos — revise e adapte se
 
 | Documento | Conteúdo |
 |-----------|----------|
-| [docs/architecture.md](docs/architecture.md) | Clean Architecture com regras de dependência |
+| [docs/architecture.md](docs/architecture.md) | Estilo arquitetural e regras de dependência |
 | [docs/security.md](docs/security.md) | Baseline de segurança (auth, validação, OWASP) |
 | [docs/observability.md](docs/observability.md) | Logging, requestId, métricas, alertas |
 | [docs/engineer-guidelines.md](docs/engineer-guidelines.md) | Naming, testes, git workflow, DoD |
-| [docs/project-structure.md](docs/project-structure.md) | Layout de pastas (Clean Architecture) |
+| [docs/project-structure.md](docs/project-structure.md) | Estrutura recomendada de pastas |
 
 ### 4. Configurar MCP
 
@@ -71,11 +71,11 @@ MCPs opcionais: Playwright (testes e2e), DB, Figma, etc.
 ### 5. Criar ADRs do projeto
 
 O template inclui:
-- `docs/adr/0000-adr-template.md` — Template padrão (copie para criar novas ADRs)
-- `docs/adr/0001-clean-architecture.md` — Exemplo: estilo arquitetural
-- `docs/adr/0008-structured-logging.md` — Exemplo: padrão de logs
+- `docs/adr/0000-adr-template.md` — Template padrão com instruções e mini-exemplo (copie para criar novas ADRs)
 
-Crie novos ADRs para decisões do projeto (linguagem, banco, framework, auth, hosting, etc.). Remova ou adapte os exemplos conforme necessário.
+Crie ADRs para decisões do projeto (estilo arquitetural, linguagem, banco, framework, auth, hosting, etc.).
+
+Consulte `docs/engineer-guidelines.md` (seção ADRs) para o processo completo.
 
 ### 6. Customizar instructions (opcional)
 

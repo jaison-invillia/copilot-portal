@@ -10,81 +10,93 @@ Para regras do domínio consulte: `docs/domain.md`
 
 ## 🧭 Architectural Style
 
-<!-- [PREENCHER] Defina o estilo arquitetural do projeto. O exemplo abaixo usa Clean Architecture. -->
-<!-- Adapte ou substitua conforme a decisão do seu projeto (ver ADR correspondente). -->
+<!-- [PREENCHER] Defina o estilo arquitetural do projeto e registre a decisão em uma ADR (docs/adr/). -->
+<!-- Exemplos de estilos: Clean Architecture, Hexagonal, Modular, MVC, CQRS. -->
+<!-- Adapte as seções abaixo conforme o estilo adotado. -->
 
-O backend segue os princípios de **Clean Architecture**, com dependências apontando **sempre para dentro** (domínio).
+> **[PREENCHER]** Descreva aqui o estilo arquitetural adotado pelo projeto e a justificativa.
+>
+> Registre a decisão formalmente em uma ADR: `docs/adr/NNNN-estilo-arquitetural.md`
 
-> **Nota:** Este é o estilo sugerido pelo template. Adapte conforme necessário e registre a decisão em uma ADR.
+### Camadas (defina conforme o estilo adotado)
 
-### Camadas (alto nível)
+<!-- Exemplo para uma arquitetura em camadas (adapte ao estilo do projeto): -->
 
-- **Domain**: entidades e regras de negócio puras (sem framework)
-- **Application**: casos de uso (use cases) e portas (interfaces) que o domínio precisa
-- **Interfaces**: adaptadores de entrada (HTTP controllers, DTOs, middlewares)
-- **Infrastructure**: adaptadores de saída (DB/repositories, providers externos, logger, observability)
-- **Main**: composição/bootstrapping (DI, rotas, wiring)
+> **[PREENCHER]** Liste as camadas do projeto e suas responsabilidades.
+>
+> Exemplo (Clean Architecture):
+> - **Domain**: entidades e regras de negócio puras (sem framework)
+> - **Application**: casos de uso (use cases) e portas (interfaces)
+> - **Interfaces**: adaptadores de entrada (HTTP controllers, DTOs, middlewares)
+> - **Infrastructure**: adaptadores de saída (DB/repositories, providers externos, logger)
+> - **Main**: composição/bootstrapping (DI, rotas, wiring)
+>
+> Exemplo (MVC):
+> - **Models**: entidades e regras de negócio
+> - **Controllers**: lógica de coordenação e HTTP
+> - **Views/Routes**: apresentação e rotas
 
-### Regras de dependência (obrigatórias)
+### Regras de dependência
 
-```
-interfaces      ─┐
-infrastructure  ─┼──> application ───> domain
-main            ─┘
-```
+<!-- Defina a direção de dependência entre camadas. -->
 
-**Permitido**
-- `interfaces` pode importar `application` (para chamar use cases) e tipos do `domain` quando necessário
-- `infrastructure` pode importar `application` (para implementar ports) e tipos do `domain` quando necessário
-- `main` pode importar todos (apenas para compor)
+> **[PREENCHER]** Defina as regras de dependência entre camadas.
+>
+> Exemplo para arquitetura em camadas com dependência para dentro:
+> ```
+> interfaces      ─┐
+> infrastructure  ─┼──> application ───> domain
+> main            ─┘
+> ```
 
-**Proibido**
-- `domain` importar qualquer coisa de `application`, `interfaces` ou `infrastructure`
-- `application` importar `interfaces` ou `infrastructure`
-- Controllers conterem regra de negócio
-- Repositories conterem regra de negócio
+**Princípios gerais (adapte ao estilo adotado):**
+
+- Camadas internas **não devem** importar camadas externas
+- Controllers/handlers **não devem** conter regra de negócio
+- Acesso a banco **deve** ser feito através de abstrações (repositories/adapters)
+- A camada de composição (main/bootstrap) é a única que pode referenciar todas as outras
 
 ---
 
 ## 🧩 Responsabilidades por camada
 
-### Domain
+<!-- [PREENCHER] Detalhe as responsabilidades de cada camada do projeto. -->
+<!-- Os exemplos abaixo são baseados em arquitetura em camadas — adapte ao estilo adotado. -->
+
+### Camada de Domínio / Modelos
 - Entidades de negócio
 - Regras invariantes do domínio
 - Value Objects (se aplicável)
 
-**Não contém**
-- SQL, HTTP, DTOs de API, bibliotecas de framework, logging, instrumentação de APM
+**Não deve conter:** SQL, HTTP, DTOs de API, dependências de framework
 
-### Application
-- Use cases (commands/queries) que implementam a lógica do negócio
-- Ports (interfaces) para persistência e serviços externos
-- Modelos de saída (quando necessário) que não são entidades HTTP
+### Camada de Aplicação / Serviços
+- Casos de uso / lógica de orquestração
+- Portas/interfaces para dependências externas
+- Modelos de entrada/saída internos (não HTTP)
 
 > **[PREENCHER]** Liste os use cases do projeto. Exemplos:
 > - `RegisterUser`
-> - `LoginUser`
 > - `Create[Entity]`
-> - `Get[Entity]Details`
 > - `List[Entities]`
 
-### Interfaces (Input Adapters)
+### Camada de Interfaces / Controllers
 - Rotas e controllers HTTP
 - DTOs de request/response (alinhados com `docs/api-spec.md`)
 - Middlewares (auth, requestId, error mapping)
 
-**Regra**: controller transforma HTTP → input do use case e output → HTTP (sem negócio).
+**Regra**: transformar entrada HTTP → input do caso de uso e output → resposta HTTP (sem negócio).
 
-### Infrastructure (Output Adapters)
-- Implementações concretas de ports (ex.: `UserRepository[DB]`)
+### Camada de Infraestrutura / Adapters
+- Implementações concretas de abstrações/ports
 - Conexão com DB e migrations
-- Integrações externas (ex.: geração de PDF, serviços futuros)
+- Integrações externas
 - Logger e instrumentação de APM
 
-### Main (Composition Root)
-- Cria instâncias concretas
-- Faz wiring de dependências (DI manual)
-- Define rotas e inicia o server
+### Camada de Composição / Bootstrap
+- Criação de instâncias concretas
+- Wiring de dependências (DI)
+- Definição de rotas e inicialização do server
 
 ---
 
@@ -92,40 +104,42 @@ main            ─┘
 
 ### Backend
 
+<!-- [PREENCHER] Adapte a estrutura de pastas conforme o estilo arquitetural e a linguagem do projeto. -->
+<!-- O exemplo abaixo é baseado em arquitetura em camadas — adapte ao estilo adotado. -->
+
 ```
 backend/
   src/
-    domain/
+    [PREENCHER] Organize conforme o estilo arquitetural adotado.
+
+    # Exemplo para arquitetura em camadas:
+    domain/               # entidades e regras de negócio
       entities/
-      value-objects/
       errors/
 
-    application/
+    application/          # casos de uso e abstrações
       use-cases/
       ports/
-      dto/                # opcional: modelos de entrada/saída do application (não HTTP)
 
-    interfaces/
+    interfaces/           # adaptadores de entrada (HTTP)
       http/
         controllers/
         routes/
         middlewares/
-        dto/              # request/response DTOs (HTTP)
-      mappers/            # conversões DTO <-> modelos do application/domain
+        dto/
+      mappers/
 
-    infrastructure/
+    infrastructure/       # adaptadores de saída (DB, serviços)
       db/
         connection/
         migrations/
-      repositories/       # implementações dos ports
-      observability/
+      repositories/
       logging/
-      providers/          # pdf generator, email, etc (futuro)
+      providers/
 
-    main/
+    main/                 # composição e bootstrap
       server/
-      container/          # composition root / wiring
-      app.ts              # bootstrap
+      container/
 ```
 
 ### Frontend

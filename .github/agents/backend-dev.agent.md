@@ -64,13 +64,13 @@ Always implement in this sequence to respect dependency direction (adapt layers 
 
 Follow the architectural style and rules defined in `docs/architecture.md`.
 
-If the project uses Clean Architecture (see ADR-0001):
+General principles (adapt to the project's architectural style):
 
-- **Domain** has ZERO framework/library imports. Pure business logic only.
-- **Application** depends only on Domain. Uses ports (interfaces) for external access.
-- **Infrastructure** implements ports defined in Application. May use frameworks/DB.
-- **Interfaces** handles HTTP concerns only (parsing, validation, response formatting).
-- **Main** is the composition root — wiring only, no logic.
+- **Domain/Business layer** has ZERO framework/library imports. Pure business logic only.
+- **Application/Service layer** depends only on Domain. Uses ports (interfaces) for external access.
+- **Infrastructure layer** implements ports defined in Application. May use frameworks/DB.
+- **Interface/Controller layer** handles HTTP concerns only (parsing, validation, response formatting).
+- **Composition root** is wiring only, no logic.
 
 **Forbidden patterns:**
 - Business logic in controllers

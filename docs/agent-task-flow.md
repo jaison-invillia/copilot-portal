@@ -39,7 +39,7 @@ Entregas: Issue criada com contexto, critérios, prioridade e subtarefas.
 Analisa issues sob perspectiva arquitetural.
 
 Responsabilidades:
-- Identificar camadas de Clean Architecture afetadas
+- Identificar camadas arquiteturais afetadas (conforme `docs/architecture.md`)
 - Sugerir estrutura de arquivos/módulos por camada
 - Verificar conformidade com fronteiras arquiteturais
 - Propor ADRs quando necessário
@@ -69,7 +69,7 @@ Entregas: Plano documentado no issue + PR aberta.
 ---
 
 ### 4) Backend Developer (`backend-dev`)
-Implementa código backend seguindo Clean Architecture. **Sub-agente** (invocado pelo Staff).
+Implementa código backend seguindo o estilo arquitetural definido em `docs/architecture.md`. **Sub-agente** (invocado pelo Staff).
 
 Responsabilidades:
 - Implementar entidades de domínio, use cases, ports
@@ -118,7 +118,7 @@ Responsabilidades:
 Revisa Pull Requests contra guidelines do projeto.
 
 Responsabilidades:
-- Revisar código para conformidade com Clean Architecture
+- Revisar código para conformidade com `docs/architecture.md`
 - Validar aderência a contratos de API
 - Verificar práticas de segurança e observabilidade
 - Verificar existência e cobertura de testes

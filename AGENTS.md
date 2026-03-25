@@ -168,7 +168,7 @@ Validates implementations by executing tests and verifying acceptance criteria.
 Reviews Pull Requests against project guidelines.
 
 **Responsibilities:**
-- Review code for Clean Architecture compliance
+- Review code for architectural compliance per `docs/architecture.md`
 - Validate API contract adherence
 - Check security and observability practices
 - Verify tests exist and cover changes
