@@ -23,6 +23,7 @@ This agent is triggered by `staff` only when the task includes code changes.
 - Verifying observability compliance (requestId, structured logging)
 - Ensuring tests exist and cover the changes
 - Checking naming conventions and coding standards
+- Recommending `dba` review when PR includes DB migration/schema changes without explicit DBA validation
 - Posting review comments on the PR via MCP
 - Updating the issue with review results
 
@@ -107,6 +108,12 @@ For each changed file, verify:
 **Documentation:**
 - [ ] If new endpoint/entity/table added, docs updated or flagged
 
+**Database-specific (when PR touches `**/migrations/**`):**
+- [ ] Migration includes safe `up`/`down` strategy
+- [ ] No unsafe destructive pattern without staged rollout plan
+- [ ] FK actions (`ON DELETE` / `ON UPDATE`) are explicit when applicable
+- [ ] Recommend `dba` review in PR summary if DBA validation is not documented in issue/PR context
+
 ### Step 4 — Post review (MCP)
 Post a structured review on the PR via MCP with:
 - Overall verdict: Approve / Request Changes
@@ -138,6 +145,7 @@ Post review comments on the PR, plus a summary comment:
 | Observability | ✅ / ❌ | [notes] |
 | Tests | ✅ / ❌ | [notes] |
 | Code Quality | ✅ / ❌ | [notes] |
+| Database Review | ✅ / ❌ | [notes, include `dba` recommendation when needed] |
 | Documentation | ✅ / ❌ | [notes] |
 
 ---

@@ -10,15 +10,16 @@ Plan and execute the implementation for the specified GitHub Issue:
 2. Read all mandatory project documentation
 3. Clarify ambiguities and validate task quality before implementation
 4. Trigger documenter for mandatory mini documentation plan at task start
-5. Classify the task as `feature_nova` or `mudanca_existente`
-6. Plan implementation at code level (files to create/modify, order)
-7. Document the plan on the issue as a comment via MCP
-8. Consult test-advisor using the classification
-9. Delegate to backend-dev and/or frontend-dev in parallel when possible
-10. Validate results and run tests
-11. Consult metrifier for observability recommendations
-12. Trigger reviewer only if code changes exist
-13. Create a feature branch and open a PR via MCP
-14. Post final status update on the issue
+5. If DB impact exists, consult `dba` before backend delegation
+6. Classify the task as `feature_nova` or `mudanca_existente`
+7. Plan implementation at code level (files to create/modify, order)
+8. Document the plan on the issue as a comment via MCP
+9. Consult test-advisor using the classification
+10. Delegate to backend-dev and/or frontend-dev in parallel when possible
+11. Validate results and run tests
+12. Consult metrifier for observability recommendations
+13. Trigger reviewer only if code changes exist
+14. Create a feature branch and open a PR via MCP
+15. Post final status update on the issue
 
 Follow the staff agent workflow strictly.

@@ -1,4 +1,3 @@
-````chatagent
 ---
 name: pathfinder
 description: "Use when: pathfinder, plan task, planejar tarefa, qual fluxo seguir, por onde começar, sugerir fluxo, suggest workflow, guide task, tarefa incerta, tarefa genérica, não sei por onde começar, which agents to use, quais agentes usar, roteiro de agentes, agent roadmap, task planning, planejamento de tarefa, help me start, como começar, fluxo de desenvolvimento, development flow."
@@ -59,6 +58,7 @@ Use this catalog to decide which agents to include in the recommended flow:
 |-------|----------------|---------------------|
 | **product-owner** | Task is vague, needs business clarification, acceptance criteria are missing, or an issue/card needs to be created | Structured issue with acceptance criteria and priority |
 | **architect** | Task may impact architecture, touches multiple layers, introduces new patterns, or needs an ADR | Architectural analysis with affected layers and file structure |
+| **dba** | Task involves DB changes (schema, constraints, migrations, indexes, query performance) | Database analysis with schema/migration/index recommendations |
 | **staff** | Task requires code implementation and coordination of multiple sub-agents | Implementation plan, delegation to BE/FE, PR creation |
 | **backend-dev** | Task requires backend code changes (domain, use cases, repositories, controllers) | Backend implementation with tests |
 | **frontend-dev** | Task requires frontend code changes (pages, components, hooks, API integration) | Frontend implementation with tests |
@@ -133,12 +133,12 @@ Generate an ordered agent roadmap with:
 
 ### Feature (well-defined)
 ```
-product-owner → architect → staff(+documenter-start + test-classification) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final)
+product-owner → architect → dba(if DB) → staff(+documenter-start + test-classification) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final)
 ```
 
 ### Feature (vague or uncertain)
 ```
-product-owner (clarify) → architect (assess impact) → staff(clarify + documenter-start + classify tests) → test-advisor (plan tests) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final) → metrifier
+product-owner (clarify) → architect (assess impact) → dba(if DB impact) → staff(clarify + documenter-start + classify tests) → test-advisor (plan tests) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final) → metrifier
 ```
 
 ### Bug fix
@@ -149,6 +149,11 @@ product-owner (clarify bug) → staff (investigate + documenter-start + `mudanca
 ### Refactoring / Tech debt
 ```
 architect (assess impact) → staff (documenter-start + classify tests) → test-advisor (regression strategy) → [backend-dev/frontend-dev] → qa → reviewer(code-change) → documenter(final)
+```
+
+### Database-focused change
+```
+dba → architect(if broader architectural impact) → staff(+documenter-start) → [backend-dev] → qa → reviewer(code-change) → documenter(final)
 ```
 
 ### Exploration / Spike
@@ -256,5 +261,3 @@ A good pathfinder recommendation:
 - Tells the user **exactly how to start** (which slash command, with what arguments)
 - Is **concise** — no unnecessary steps, no bloated explanations
 - Considers the **current state** of the project (what docs say, what exists vs. what's missing)
-
-````

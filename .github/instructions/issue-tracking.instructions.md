@@ -81,6 +81,7 @@ Before creating or updating any tracker card, the `product-owner` must:
 |-------|----------------|----------------|----------------------|
 | product-owner | ✅ After explicit approval and only with writable MCP | ✅ After explicit approval and only with writable MCP | ✅ When task is large and tracker supports it |
 | architect | ❌ No | ✅ Comments/notes only on approved cards when supported (including conditional requests to `documenter`/`test-advisor` when guidance is not already planned) | ❌ No |
+| dba | ❌ No | ✅ Database analysis comments on approved cards when DB impact exists | ❌ No |
 | staff | ❌ No | ✅ Yes on approved cards (plan + progress + ambiguity/doc triage) | ✅ When delegating work and tracker supports it |
 | qa | ❌ No | ✅ Test results on approved cards | ❌ No |
 | reviewer | ❌ No | ✅ Review results (only when code changed) | ❌ No |
@@ -95,6 +96,7 @@ When creating a tracker card, include a standard subtask checklist when the trac
 ```markdown
 ## Subtasks
 - [ ] 🏗️ Architectural analysis (@architect)
+- [ ] 🗄️ Database analysis when DB impact exists (@dba)
 - [ ] 🧭 Documentation guidance covered in architecture phase (subtask + agent comment) when applicable
 - [ ] 🧭 High-level testing guidance covered in architecture phase (subtask + agent comment) when applicable
 - [ ] 🛠️ Implementation plan (@staff)

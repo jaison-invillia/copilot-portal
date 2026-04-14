@@ -213,7 +213,7 @@ Preferred workflow:
 
 # AI Agent Squad
 
-This project uses a squad of 11 specialized AI agents.
+This project uses a squad of 13 specialized AI agents.
 
 Agents:
 
@@ -222,6 +222,7 @@ Agents:
 | product-owner | Converts demands into tracker card drafts and approved work items |
 | architect | Architectural analysis |
 | staff | Orchestrator — plans and delegates |
+| dba | Database decisions: schema, migrations, constraints, indexes, rollback safety |
 | backend-dev | Backend implementation (sub-agent) |
 | frontend-dev | Frontend implementation (sub-agent) |
 | test-advisor | Testing strategy |
@@ -230,21 +231,22 @@ Agents:
 | documenter | Documentation mini-plan at task start + final update |
 | metrifier | Metrics and observability |
 | project-setup | Initial stack configuration |
+| pathfinder | Diagnoses uncertain tasks and suggests agent workflow |
 
 Delegation model:
 
-staff → [backend-dev, frontend-dev, test-advisor, qa, metrifier, reviewer, documenter]
+staff → [dba(when DB impact), backend-dev, frontend-dev, test-advisor, qa, metrifier, reviewer, documenter]
 
 Main flows:
 
-A) New feature: product-owner → architect → staff(+documenter-start) → [BE, FE] → qa → reviewer(code-change) → documenter(final)
-B) Bug fix: product-owner → staff(+documenter-start) → [BE/FE] → qa → reviewer(code-change) → documenter(final)
+A) New feature: product-owner → architect → dba(if DB) → staff(+documenter-start) → [BE, FE] → qa → reviewer(code-change) → documenter(final)
+B) Bug fix: product-owner → dba(if DB) → staff(+documenter-start) → [BE/FE] → qa → reviewer(code-change) → documenter(final)
 C) Bootstrap: product-owner → architect → staff(+documenter-start) → documenter(final)
 D) Tech debt: architect → staff(+documenter-start) → [BE/FE] → reviewer(code-change) → documenter(final)
 
 Slash commands:
 
-/setup-project, /new-feature, /analyze-issue, /implement-issue, /review-pr, /fix-bug, /document-pr
+/setup-project, /plan-task, /new-feature, /analyze-issue, /analyze-database, /implement-issue, /review-pr, /fix-bug, /document-pr
 
 Reference:
 AGENTS.md

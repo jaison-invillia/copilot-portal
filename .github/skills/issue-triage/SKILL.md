@@ -1,6 +1,6 @@
 ---
 name: issue-triage
-description: "Complete issue triage workflow: from raw demand to implementation-ready issue. Orchestrates Product Owner → Architect → Staff planning. Use when a new demand arrives and needs full triage through the agent pipeline."
+description: "Complete issue triage workflow: from raw demand to implementation-ready issue. Orchestrates Product Owner → Architect → DBA(if DB) → Staff planning. Use when a new demand arrives and needs full triage through the agent pipeline."
 argument-hint: "Describe the demand or provide the issue number"
 ---
 
@@ -38,12 +38,22 @@ End-to-end workflow for triaging a new demand through the agent pipeline until i
    - Post the architectural plan as a comment on the approved card when the tracker supports comments
 3. Wait for the analysis to be posted
 
+### Phase 2.5 — Database Analysis (conditional)
+
+1. If the architectural analysis indicates database impact, invoke the `dba` agent with the approved card/issue reference
+2. The DBA will:
+   - Analyze schema/migration/constraint/index impact
+   - Flag rollout and rollback risks
+   - Post database recommendations on the approved card when tracker supports comments
+3. Wait for the analysis to be posted
+
 ### Phase 3 — Implementation Planning
 
 1. Invoke the `staff` agent with the approved card/issue number
 2. The Staff will:
    - Clarify ambiguities and validate task quality
    - Trigger `documenter` for mandatory mini documentation plan
+   - Consult `dba` before backend delegation when DB changes are in scope
    - Read the PO's task and Architect's analysis
    - Plan implementation at code level
    - Document the plan on the issue
@@ -62,6 +72,7 @@ Refer to [triage criteria](./references/triage-criteria.md) for priority definit
 - [ ] Acceptance criteria defined (Given/When/Then)
 - [ ] Priority assigned (P0–P3)
 - [ ] Architectural analysis posted as comment
+- [ ] DBA analysis posted when DB impact exists
 - [ ] ADR drafted if needed
 - [ ] Implementation plan documented
 - [ ] Documentation mini-plan outlined

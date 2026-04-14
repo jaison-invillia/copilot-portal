@@ -44,15 +44,16 @@ Agents must read the following files before implementing changes:
 | 1 | **Product Owner** | `product-owner.agent.md` | ✅ Yes | read, search, github/* | — |
 | 2 | **Architect** | `architect.agent.md` | ✅ Yes | read, search, github/* | — |
 | 3 | **Staff (Orchestrator)** | `staff.agent.md` | ✅ Yes | read, edit, search, execute, github/*, agent | backend-dev, frontend-dev, test-advisor, qa, metrifier, reviewer, documenter |
-| 4 | **Backend Developer** | `backend-dev.agent.md` | ❌ Sub-agent | read, edit, search, execute | test-advisor |
-| 5 | **Frontend Developer** | `frontend-dev.agent.md` | ❌ Sub-agent | read, edit, search, execute | test-advisor |
-| 6 | **Test Advisor** | `test-advisor.agent.md` | ✅ Yes | read, search | — |
-| 7 | **QA** | `qa.agent.md` | ✅ Yes | read, search, execute | — |
-| 8 | **Reviewer** | `reviewer.agent.md` | ✅ Yes | read, search, github/* | — |
-| 9 | **Documenter** | `documenter.agent.md` | ✅ Yes | read, edit, search, github/* | — |
-| 10 | **Metrifier** | `metrifier.agent.md` | ✅ Yes | read, search | — |
-| 11 | **Project Setup** | `project-setup.agent.md` | ✅ Yes | read, edit, search, execute, github/* | — |
-| 12 | **Pathfinder** | `pathfinder.agent.md` | ✅ Yes | read, search | — |
+| 4 | **DBA** | `dba.agent.md` | ✅ Yes | read, search, github/* | documenter |
+| 5 | **Backend Developer** | `backend-dev.agent.md` | ❌ Sub-agent | read, edit, search, execute | test-advisor |
+| 6 | **Frontend Developer** | `frontend-dev.agent.md` | ❌ Sub-agent | read, edit, search, execute | test-advisor |
+| 7 | **Test Advisor** | `test-advisor.agent.md` | ✅ Yes | read, search | — |
+| 8 | **QA** | `qa.agent.md` | ✅ Yes | read, search, execute | — |
+| 9 | **Reviewer** | `reviewer.agent.md` | ✅ Yes | read, search, github/* | — |
+| 10 | **Documenter** | `documenter.agent.md` | ✅ Yes | read, edit, search, github/* | — |
+| 11 | **Metrifier** | `metrifier.agent.md` | ✅ Yes | read, search | — |
+| 12 | **Project Setup** | `project-setup.agent.md` | ✅ Yes | read, edit, search, execute, github/* | — |
+| 13 | **Pathfinder** | `pathfinder.agent.md` | ✅ Yes | read, search | — |
 
 ---
 
@@ -109,6 +110,7 @@ Central orchestrator that plans and coordinates implementation.
 - Plan implementation at code level (files, order, dependencies)
 - Document the plan on the issue via MCP
 - Trigger `documenter` at task start for documentation impact mini-plan
+- Consult `dba` when task includes database impact (schema/migrations/constraints/indexes/performance)
 - Classify work as `feature_nova` or `mudanca_existente` before test planning
 - Consult `test-advisor` for testing strategy based on classification
 - Delegate to `backend-dev` and/or `frontend-dev` sub-agents
@@ -117,7 +119,7 @@ Central orchestrator that plans and coordinates implementation.
 - Trigger `reviewer` before finalizing only when code changes exist
 - Create branch and open PR via MCP
 
-**Delegates to:** `backend-dev`, `frontend-dev`, `test-advisor`, `qa`, `metrifier`, `reviewer`, `documenter`
+**Delegates to:** `backend-dev`, `frontend-dev`, `test-advisor`, `qa`, `metrifier`, `reviewer`, `documenter`, `dba`
 
 **Triggers:** "staff", "orchestrator", "planejar implementação", "executar tarefa"
 
@@ -248,7 +250,22 @@ First-use onboarding wizard that detects the environment, configures the project
 
 ---
 
-### 12. Pathfinder (`pathfinder`)
+### 12. DBA (`dba`)
+
+Owns database-related technical decisions for this repository.
+
+**Responsibilities:**
+- Analyze schema impact for tasks involving DB changes
+- Recommend constraints, indexes, and migration safety patterns
+- Validate rollback strategy (`up`/`down`) and integrity risks
+- Keep recommendations database-agnostic unless docs define an engine-specific rule
+- Trigger `documenter` when database documentation updates are required
+
+**Triggers:** "dba", "database", "schema", "migration", "index", "constraint", "query performance"
+
+---
+
+### 13. Pathfinder (`pathfinder`)
 
 Advisory agent that diagnoses uncertain or complex tasks and suggests the optimal agent workflow. First point of contact when you don't know where to start.
 
@@ -275,7 +292,10 @@ User
  │
  ├── architect ──→ Posts architectural analysis on Issue (+ conditional requests to documenter/test-advisor)
  │
+ ├── dba ──→ Owns database analysis and migration/constraint/index recommendations
+ │
  ├── staff (orchestrator)
+ │     ├── dba (when DB impact exists)
  │     ├── backend-dev ──→ Implements backend code
  │     │     └── test-advisor (consulta)
  │     ├── frontend-dev ──→ Implements frontend code
@@ -324,12 +344,12 @@ Standard format:
 
 ### A) New Feature
 ```
-(pathfinder) → product-owner → architect → staff(+documenter-start) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final)
+(pathfinder) → product-owner → architect → dba(if DB changes) → staff(+documenter-start) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final)
 ```
 
 ### B) Bug Fix
 ```
-(pathfinder) → product-owner (clarify) → staff(+documenter-start) → [backend-dev/frontend-dev] → qa → reviewer(code-change) → documenter(final)
+(pathfinder) → product-owner (clarify) → dba(if DB changes) → staff(+documenter-start) → [backend-dev/frontend-dev] → qa → reviewer(code-change) → documenter(final)
 ```
 
 ### C) New Project (Bootstrap)
@@ -352,6 +372,7 @@ Standard format:
 | `/plan-task` | pathfinder | Diagnose a task and suggest the optimal agent workflow |
 | `/new-feature` | product-owner | Start new feature flow |
 | `/analyze-issue` | architect | Architectural analysis |
+| `/analyze-database` | dba | Database analysis and migration/index/constraint guidance |
 | `/implement-issue` | staff | Plan and implement |
 | `/review-pr` | reviewer | Code review |
 | `/fix-bug` | staff | Bug fix flow |
@@ -374,6 +395,7 @@ A task is complete when:
 - [ ] Code follows the architectural style defined in `docs/architecture.md`
 - [ ] API matches `docs/api-spec.md`
 - [ ] Schema matches `docs/database.md`
+- [ ] DBA validation completed when DB changes exist
 - [ ] Tests follow strategy by classification (`feature_nova` or `mudanca_existente`)
 - [ ] Logging includes `requestId`
 - [ ] Security rules respected

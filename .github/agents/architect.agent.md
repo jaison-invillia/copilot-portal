@@ -19,6 +19,7 @@ Your primary objective is to analyze GitHub Issues from an architectural perspec
 - Suggesting the file/module structure per layer
 - Verifying compliance with documented architectural boundaries
 - Identifying risks, constraints, and architectural concerns
+- Flagging database-impact tasks so `staff` consults `dba`
 - Proposing an ADR when the task involves a new architectural decision or deviates from existing patterns
 - If not already planned in the issue, requesting:
   - `documenter` guidance on how to document the demand
@@ -112,6 +113,7 @@ For each architectural layer (Domain, Application, Interfaces, Infrastructure, M
 - Is this layer affected? If yes, what is its specific responsibility in this task?
 - What new artifacts (entities, use cases, ports, controllers, repositories) need to be created or modified?
 - Are the dependency rules respected? (interfaces/infrastructure → application → domain)
+- If Infrastructure/DB impact exists, explicitly mark in your plan that `staff` must consult `dba` before backend implementation delegation.
 
 ### Step 4 — Suggest file/module structure
 - Propose the folder and file structure per layer, following `docs/project-structure.md` and naming conventions from `docs/engineer-guidelines.md`.
@@ -211,6 +213,9 @@ Post the following structure as a comment on the GitHub Issue:
 If not already planned (❌), include:
 - **Request to `documenter`**: propose how to document this demand
 - **Request to `test-advisor`**: propose a high-level testing strategy
+
+If DB impact exists, include:
+- **DBA note for `staff`**: consult `dba` before backend delegation and reflect recommendations in the implementation plan
 ```
 
 ---

@@ -131,7 +131,7 @@ When generating code changes, include:
 
 ## 7) Agent squad
 
-This repository uses a squad of 12 specialized AI agents defined in `.github/agents/`. See `AGENTS.md` for full details.
+This repository uses a squad of 13 specialized AI agents defined in `.github/agents/`. See `AGENTS.md` for full details.
 
 ### Available agents
 
@@ -140,6 +140,7 @@ This repository uses a squad of 12 specialized AI agents defined in `.github/age
 | `product-owner` | New demands, issue creation, acceptance criteria, backlog refinement |
 | `architect` | Architectural analysis of issues, layer impact, ADR evaluation, and conditional requests for documentation/testing guidance |
 | `staff` | Implementation planning, delegation, PR creation (orchestrator) |
+| `dba` | Database impact analysis, migration/constraint/index guidance, rollback safety |
 | `backend-dev` | Backend code implementation (sub-agent of staff) |
 | `frontend-dev` | Frontend code implementation (sub-agent of staff) |
 | `test-advisor` | Testing strategy proposals (what to test, how to structure) |
@@ -158,6 +159,7 @@ This repository uses a squad of 12 specialized AI agents defined in `.github/age
 | `/plan-task` | Diagnose a task and suggest the optimal agent workflow |
 | `/new-feature` | Start new feature (PO flow) |
 | `/analyze-issue` | Architectural analysis |
+| `/analyze-database` | Database analysis |
 | `/implement-issue` | Plan and implement issue |
 | `/review-pr` | Code review a PR |
 | `/fix-bug` | Bug fix flow |
@@ -177,10 +179,15 @@ This repository uses a squad of 12 specialized AI agents defined in `.github/age
    - relevant subtask in the issue checklist
    - prior agent comment requesting/providing that guidance
 - On every task start, `staff` must trigger `documenter` for a mandatory documentation mini-plan (`required` / `optional` / `none`).
+- When DB impact exists, `staff` must consult `dba` before delegating backend implementation.
 - `staff` must classify testing approach as `feature_nova` or `mudanca_existente` before consulting `test-advisor`.
 - For `mudanca_existente`, adjust existing tests when coverage is already sufficient.
 - `staff` must parallelize independent delegations whenever possible.
 - Before finalizing, `staff` must trigger `reviewer` only when there are code changes.
+
+### Reviewer collaboration rule
+
+- If a PR contains database migration/schema changes and no DBA validation is evident, `reviewer` should recommend DBA review before approval.
 
 ### Architect collaboration rule
 

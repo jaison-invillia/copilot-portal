@@ -70,6 +70,7 @@ Responsabilidades:
    - subtarefa de cobertura para documentação e testes em alto nível
    - comentário anterior de agente solicitando/fornecendo essa orientação
 - Acionar `documenter` no início de toda tarefa para mini-plano documental obrigatório
+- Consultar `dba` sempre que houver impacto de banco (schema, migrações, constraints, índices, performance de query)
 - Planejar implementação a nível de código (arquivos, ordem, dependências)
 - Documentar plano no card/issue via MCP
 - Classificar a tarefa como `feature_nova` ou `mudanca_existente`
@@ -81,7 +82,7 @@ Responsabilidades:
 - Acionar `reviewer` antes da finalização somente quando houver mudança de código
 - Criar branch e abrir PR via MCP
 
-Delega para: `backend-dev`, `frontend-dev`, `test-advisor`, `qa`, `metrifier`, `reviewer`, `documenter`
+Delega para: `backend-dev`, `frontend-dev`, `test-advisor`, `qa`, `metrifier`, `reviewer`, `documenter`, `dba`
 
 Entregas: Plano documentado no card/issue + PR aberta.
 
@@ -191,6 +192,20 @@ Entregas: Roteiro sugerido com sequência de agentes, justificativas, riscos e c
 
 ---
 
+### 12) DBA (`dba`)
+Especialista em decisões de banco de dados para mudanças que envolvem persistência.
+
+Responsabilidades:
+- Analisar impacto de schema para mudanças propostas
+- Definir recomendações de constraints, índices e estratégia de migração
+- Validar segurança de rollback (`up`/`down`) e riscos de integridade
+- Manter recomendações agnósticas ao engine, salvo regras explícitas em documentação
+- Solicitar atualização documental ao `documenter` quando houver mudança de banco
+
+Entregas: Análise estruturada de banco (schema/migration/index/risks) publicada no card/issue.
+
+---
+
 ## 🔄 Modelo de delegação
 
 ```
@@ -202,7 +217,10 @@ Usuário
  │
  ├── architect ──→ Posta análise arquitetural no Issue (+ solicitações condicionais para documenter/test-advisor)
  │
+ ├── dba ──→ Posta análise de banco para tarefas com impacto em persistência
+ │
  ├── staff (orchestrator)
+ │     ├── dba (consulta obrigatória quando houver impacto de banco)
  │     ├── backend-dev ──→ Implementa backend
  │     │     └── test-advisor (consulta)
  │     ├── frontend-dev ──→ Implementa frontend
@@ -275,7 +293,7 @@ Formato padrão:
 
 ### A) Nova feature
 ```
-(pathfinder) → product-owner → architect → staff(+documenter-start) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final)
+(pathfinder) → product-owner → architect → dba(se houver DB) → staff(+documenter-start) → [backend-dev, frontend-dev] → qa → reviewer(code-change) → documenter(final)
 ```
 
 0. **Pathfinder** *(opcional)*: Diagnostica a tarefa e sugere o fluxo ideal de agentes
@@ -290,7 +308,7 @@ Formato padrão:
 
 ### B) Bug fix
 ```
-(pathfinder) → product-owner (clarify) → staff(+documenter-start) → [backend-dev/frontend-dev] → qa → reviewer(code-change) → documenter(final)
+(pathfinder) → product-owner (clarify) → dba(se houver DB) → staff(+documenter-start) → [backend-dev/frontend-dev] → qa → reviewer(code-change) → documenter(final)
 ```
 
 0. **Pathfinder** *(opcional)*: Diagnostica o bug e sugere o fluxo de correção
@@ -333,6 +351,7 @@ Uma tarefa está concluída quando:
 - [ ] Docs atualizados (se houve mudança de contrato/domínio/banco)
 - [ ] Implementação respeita `docs/architecture.md`
 - [ ] API aderente a `docs/api-spec.md`
+- [ ] Validação de banco concluída pelo `dba` quando houver mudança de DB
 - [ ] Estratégia de testes definida (`feature_nova`/`mudanca_existente`)
 - [ ] Testes adicionados/ajustados conforme estratégia
 - [ ] Observabilidade mínima (requestId + logs/erros)
